@@ -12,7 +12,4 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile('com.github.cjbrooks12:Clog4j:v1.0.0') {
-        transitive = true;
-    }
 }
