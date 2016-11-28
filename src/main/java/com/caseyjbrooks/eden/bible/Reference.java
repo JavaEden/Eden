@@ -4,7 +4,9 @@ import com.caseyjbrooks.eden.parser.ReferenceParser;
 import com.caseyjbrooks.eden.providers.simple.SimpleBible;
 import com.caseyjbrooks.eden.providers.simple.SimpleBook;
 import com.caseyjbrooks.eden.utils.TextUtils;
+import com.google.gson.*;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -931,4 +933,22 @@ public final class Reference implements Comparable<Reference> {
 			return new Reference(bible, book, chapter, verses);
 		}
 	}
+
+	public static class ReferenceJsonizer implements JsonSerializer<Reference> {
+        @Override
+        public JsonElement serialize(Reference src, Type typeOfSrc, JsonSerializationContext context) {
+            JsonObject object = new JsonObject();
+            object.addProperty("book", src.book.getId());
+            object.addProperty("bible", src.bible.getId());
+            object.addProperty("chapter", src.chapter);
+
+            JsonArray verses = new JsonArray();
+            for(int verse : src.verses) {
+                verses.add(new JsonPrimitive(verse));
+            }
+            object.add("verses", verses);
+
+            return object;
+        }
+    }
 }

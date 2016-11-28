@@ -7,6 +7,7 @@ import java.util.List;
  * A base class for a single book in the Bible.
  */
 public abstract class Book {
+    protected String id;
 	protected String name;
 	protected String abbreviation;
 	protected int location;
@@ -16,7 +17,25 @@ public abstract class Book {
 		chapters = new ArrayList<>();
 	}
 
-	/**
+    /**
+     * Get the id of this Book (i.e. eng-ESV:Gen)
+     *
+     * @return the id of this Book
+     */
+	public String getId() {
+        return id;
+    }
+
+    /**
+     * Set the id of this Book (i.e. eng-ESV:Gen)
+     *
+     * @param id the id of this Book
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
 	 * Set the name of this Book (i.e. Genesis)
 	 *
 	 * @param name  the name of this Book
