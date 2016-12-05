@@ -138,26 +138,6 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
     }
 
     /**
-     * Serialize this Bible into a string that can be used to restore this Bible from persistent
-     * memory. Should serialize only that which is necessary to be able to identify this Bible and
-     * download the rest of the information. This would typically be the fully qualified class name
-     * of this Bible, and any IDs/API keys necessary.
-     *
-     * @return serialized String representation
-     */
-    public String serialize() {
-        return "";
-    }
-
-    /**
-     * deserialize this Bible from String.
-     * @see Bible#serialize()
-     */
-    public void deserialize(String string) {
-
-    }
-
-    /**
      * Attemps to parse a given String and determine the name of the book. Failing to find it within
      * the specified books, return nothing, so that the user can either create a blank Book to use
      * instead, throw an exception, or anything else.
@@ -192,6 +172,15 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
             }
         }
         return null;
+    }
+
+    /**
+     * Fetch the Bible's data given it's current state.
+     *
+     * @return boolean  true if the Bible's data was successfully retrieved, false otherwise
+     */
+    public boolean get() {
+        return true;
     }
 
     @Override

@@ -64,20 +64,20 @@ public class Passage<T extends Verse> extends AbstractVerse {
         if (verses.size() > 0) {
             String text = "";
 
-            text += formatter.onPreFormat(this);
+            text += verseFormatter.onPreFormat(this);
 
             for (int i = 0; i < verses.size(); i++) {
                 T verse = verses.get(i);
 
-                text += formatter.onFormatVerseStart(verse.getVerseNumber());
-                text += formatter.onFormatText(verse.getText());
+                text += verseFormatter.onFormatVerseStart(verse.getVerseNumber());
+                text += verseFormatter.onFormatText(verse.getText());
 
                 if (i < verses.size() - 1) {
-                    text += formatter.onFormatVerseEnd();
+                    text += verseFormatter.onFormatVerseEnd();
                 }
             }
 
-            text += formatter.onPostFormat();
+            text += verseFormatter.onPostFormat();
 
             return text.trim();
         } else {

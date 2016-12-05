@@ -29,10 +29,10 @@ public class SimplePassage extends Passage<SimpleVerse> {
 	public String getFormattedText() {
 		String text = "";
 
-		text += formatter.onPreFormat(this);
-		text += formatter.onFormatVerseStart(reference.getVerses().get(0));
-		text += formatter.onFormatText(this.text);
-		text += formatter.onPostFormat();
+		text += verseFormatter.onPreFormat(this);
+		text += verseFormatter.onFormatVerseStart(reference.getVerses().get(0));
+		text += verseFormatter.onFormatText(this.text);
+		text += verseFormatter.onPostFormat();
 
 		return text.trim();
 	}

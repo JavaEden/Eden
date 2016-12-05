@@ -6,17 +6,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Metadata is essentially a wrapper around a HashMap that maps Strings to {@link Comparable} Object types,
+ * Metadata is a wrapper around a HashMap that maps Strings to {@link Comparable} Object types,
  * and has convenience methods for several common datatypes: int, long, boolean, and String. It is
- * similar in function to a Bundle, but has a different purpose: Objects need not be Parcelable, and
- * the purpose of Metadata is not to marshall interfaces between Android OS processes, but to give users
- * of this library a means to attach arbitrary interfaces to verses and sort the verses by that interfaces.
+ * designed to give users the ability to map additional properties to verses which can be used to sort
+ * lists of verses. This map cannot make any assumptions about the objects it contains, and so will not
+ * be serialized along with verses.
  * <p>
- * Because verses should be sortable by any key in the Metadata, all Obbjects in the map must
+ * Because verses should be sortable by any key in the Metadata, all Objects in the map must
  * implement the Comparable interface, or be added with an appropriate Comparator.
- * <p>
- * Unlike a Bundle, the interfaces within the map is not intended to be persisted, and any persistence of interfaces
- * inside the Metadata must be done manually.
  * <p>
  * Metadata is generally typesafe, but should not be relied upon too heavily. Any of the convenience
  * methods for getting an Object out of the Metadata will throw a {@link ClassCastException} if the
@@ -139,7 +136,7 @@ public final class Metadata {
 	 *
 	 * @param key  the key
 	 */
-	private Object get(String key) {
+	public Object get(String key) {
 		return items.get(key);
 	}
 

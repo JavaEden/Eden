@@ -47,10 +47,10 @@ public class Verse extends AbstractVerse {
 	public String getFormattedText() {
 		String text = "";
 
-		text += formatter.onPreFormat(this);
-		text += formatter.onFormatVerseStart(reference.getVerses().get(0));
-		text += formatter.onFormatText(text);
-		text += formatter.onPostFormat();
+		text += verseFormatter.onPreFormat(this);
+		text += verseFormatter.onFormatVerseStart(reference.getVerses().get(0));
+		text += verseFormatter.onFormatText(text);
+		text += verseFormatter.onPostFormat();
 
 		return text.trim();
 	}

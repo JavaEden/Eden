@@ -4,10 +4,10 @@ import com.caseyjbrooks.eden.bible.AbstractVerse;
 
 /**
  * Class to format the text output of a Verse object. Rather than setting flags on the Verse itself,
- * set flags on this Formatter and assign the formatter to the Verse. This makes it easier to have
- * consistent output, because the same Formatter can be assigned to multiple Verses
+ * set flags on this VerseFormatter and assign the verseFormatter to the Verse. This makes it easier to have
+ * consistent output, because the same VerseFormatter can be assigned to multiple Verses
  */
-public interface Formatter {
+public interface VerseFormatter {
 	//called before we begin formatting the actual verses.
 	//i.e. to print the reference before all its text
 	String onPreFormat(AbstractVerse verse);

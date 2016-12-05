@@ -1,19 +1,19 @@
 package com.caseyjbrooks.eden.defaults;
 
 import com.caseyjbrooks.eden.bible.AbstractVerse;
-import com.caseyjbrooks.eden.interfaces.Formatter;
+import com.caseyjbrooks.eden.interfaces.VerseFormatter;
 
 import java.util.Random;
 
 /**
- * Formatter is a class that allows for the customization of how verses are printed to the screen.
- * DefaultFormatter provides several common options for formatting verses. All will show the text of
+ * VerseFormatter is a class that allows for the customization of how verses are printed to the screen.
+ * DefaultVerseFormatter provides several common options for formatting verses. All will show the text of
  * a verse without verse numbers, without new lines after verses, and without including the text's
  * reference. Variations of the default can display just the first letters of each word, replace all
  * words with dashed lines, do a combination of both first letters and dashed lines, or randomly
  * replace words with dashes given a threshold between 0 and 1.
  */
-public class DefaultFormatter implements Formatter {
+public class DefaultVerseFormatter implements VerseFormatter {
     protected AbstractVerse verse;
 
 //Set up default interface values
@@ -51,7 +51,7 @@ public class DefaultFormatter implements Formatter {
     /**
      * Print verse text without any changes
      */
-    public static class Normal extends DefaultFormatter {
+    public static class Normal extends DefaultVerseFormatter {
         @Override
         public String onFormatText(String verseText) {
             return verseText;
@@ -62,7 +62,7 @@ public class DefaultFormatter implements Formatter {
      * Replace all words with underscores, to give a visual representation of how long each word is.
      * Preserves punctuation.
      */
-    public static class Dashes extends DefaultFormatter {
+    public static class Dashes extends DefaultVerseFormatter {
         @Override
         public String onFormatText(String verseText) {
             return verseText.replaceAll("\\w", "_") + " ";
@@ -73,7 +73,7 @@ public class DefaultFormatter implements Formatter {
      * Replace all words with the its first letter, to give a hint at what each word is, but not its
      * length. Preserves punctuation, but all letters are shown as upper case.
      */
-    public static class FirstLetters extends DefaultFormatter {
+    public static class FirstLetters extends DefaultVerseFormatter {
         @Override
         public String onFormatText(String verseText) {
             return verseText.toUpperCase().replaceAll("(\\w)(\\w*)", "$1 ") + " ";
@@ -84,7 +84,7 @@ public class DefaultFormatter implements Formatter {
      * Replace all words with underscores but keeps the first letter. Preserves punctuation, but all
      * letters are shown as upper case.
      */
-    public static class DashedLetter extends DefaultFormatter {
+    public static class DashedLetter extends DefaultVerseFormatter {
         @Override
         public String onFormatText(String verseText) {
             return verseText.toUpperCase().replaceAll("(\\B\\w)", "_") + " ";
@@ -96,7 +96,7 @@ public class DefaultFormatter implements Formatter {
      * to ensure consistent randomization for equivalent verses, but also unique reference patterns
      * for each verse.
      */
-    public static class RandomWords extends DefaultFormatter {
+    public static class RandomWords extends DefaultVerseFormatter {
         //the percent of words to randomly be removed
         float level;
         int seedOffset;

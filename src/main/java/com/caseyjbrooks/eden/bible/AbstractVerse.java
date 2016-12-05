@@ -1,7 +1,7 @@
 package com.caseyjbrooks.eden.bible;
 
-import com.caseyjbrooks.eden.defaults.DefaultFormatter;
-import com.caseyjbrooks.eden.interfaces.Formatter;
+import com.caseyjbrooks.eden.defaults.DefaultVerseFormatter;
+import com.caseyjbrooks.eden.interfaces.VerseFormatter;
 
 /**
  * An abstract implementation of a Verse in the Bible. A verse represents a location and its text,
@@ -18,7 +18,7 @@ import com.caseyjbrooks.eden.interfaces.Formatter;
  */
 public abstract class AbstractVerse implements Comparable<AbstractVerse> {
 	protected final Reference reference;
-	protected Formatter formatter;
+	protected VerseFormatter verseFormatter;
 	protected Metadata metadata;
 	protected String id;
 
@@ -32,7 +32,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
 	 */
 	public AbstractVerse(Reference reference) {
 		this.reference = reference;
-		this.formatter = new DefaultFormatter();
+		this.verseFormatter = new DefaultVerseFormatter();
 		this.metadata = new Metadata();
 	}
 
@@ -46,23 +46,23 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
 	}
 
 	/**
-	 * Get the Formatter used to display this verse's text.
+	 * Get the VerseFormatter used to display this verse's text.
 	 *
-	 * @return the formatter
+	 * @return the verseFormatter
 	 */
-	public Formatter getFormatter() {
-		return formatter;
+	public VerseFormatter getVerseFormatter() {
+		return verseFormatter;
 	}
 
 	/**
-	 * Set the Formatter to be used when printing this verse with {@link AbstractVerse#getFormattedText()}
+	 * Set the VerseFormatter to be used when printing this verse with {@link AbstractVerse#getFormattedText()}
 	 *
-	 * @param formatter  the Formatter to be used
+	 * @param verseFormatter  the VerseFormatter to be used
 	 *
-	 * @see com.caseyjbrooks.eden.defaults.DefaultFormatter
+	 * @see DefaultVerseFormatter
 	 */
-	public void setFormatter(Formatter formatter) {
-		this.formatter = formatter;
+	public void setVerseFormatter(VerseFormatter verseFormatter) {
+		this.verseFormatter = verseFormatter;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
 	}
 
 	/**
-	 * Get the unformatted text of this verse. In addition to not using the Formatter for output, it
+	 * Get the unformatted text of this verse. In addition to not using the VerseFormatter for output, it
 	 * if likely that the text of implementing classes will contain markup that will be given with
 	 * this method. This might be useful for display if that markup is simple HTML markup.
 	 *
@@ -120,7 +120,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
 	 *
 	 * @return the formatted text of the verse
 	 *
-	 * @see #setFormatter(com.caseyjbrooks.eden.interfaces.Formatter)
+	 * @see #setVerseFormatter(VerseFormatter)
 	 */
 	public abstract String getFormattedText();
 
@@ -175,4 +175,13 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
 	 */
 	@Override
 	public abstract int hashCode();
+
+    /**
+     * Fetch the Verses's data given it's current state.
+     *
+     * @return boolean  true if the Verses's data was successfully retrieved, false otherwise
+     */
+    public boolean get() {
+        return true;
+    }
 }
