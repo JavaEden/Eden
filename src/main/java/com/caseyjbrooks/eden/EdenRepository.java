@@ -1,7 +1,6 @@
-package com.caseyjbrooks.eden.interfaces;
+package com.caseyjbrooks.eden;
 
 
-import com.caseyjbrooks.eden.Eden;
 import com.caseyjbrooks.eden.bible.Bible;
 import com.caseyjbrooks.eden.bible.BibleList;
 import com.caseyjbrooks.eden.bible.Book;
@@ -17,7 +16,7 @@ public abstract class EdenRepository {
 
     private Bible<? extends Book> selectedBible;
 
-    private EdenRepository() {
+    public EdenRepository() {
 
     }
 

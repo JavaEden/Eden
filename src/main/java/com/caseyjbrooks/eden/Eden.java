@@ -2,7 +2,6 @@ package com.caseyjbrooks.eden;
 
 import com.caseyjbrooks.eden.bible.Metadata;
 import com.caseyjbrooks.eden.bible.Reference;
-import com.caseyjbrooks.eden.interfaces.EdenRepository;
 import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
