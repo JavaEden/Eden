@@ -60,7 +60,7 @@ public final class Eden {
     }
 
     public void put(String key, String value) {
-        metadata.putString(key, "");
+        metadata.putString(key, value);
     }
 
     public GsonBuilder getSerializer() {
