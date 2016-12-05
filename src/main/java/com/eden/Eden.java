@@ -1,8 +1,10 @@
 package com.eden;
 
-import com.eden.annotations.AnnotationProcessor;
 import com.eden.bible.Metadata;
 import com.eden.bible.Reference;
+import com.eden.injection.EdenInjector;
+import com.eden.injection.annotations.EdenBibleDefinition;
+import com.eden.injection.annotations.EdenBibleListDefinition;
 import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
@@ -29,6 +31,11 @@ import java.util.Map;
  * 'object'. Note that some objects, like Bibles and BibleLists, are created and injected as singletons, so modifying
  * the singleton affects the entire app.
  */
+
+// TODO: Decide if the core library should rely exclusively on GSON or make generic wrappers around JSON parsers
+// TODO: ^ if I force GSON, I could make it easier to standardize the JSON api of this library, but it discourages third party integration
+// TODO: ^ if I allow other JSON parsers, I could do it like Spring and write wrappers for all the common parsers and includes them in this core lib, making them all conform to the same specificiations
+// TODO: Replace Metadata with a persistent key-value storage interface. Metadata should be for sorting verses, not persistence
 public final class Eden {
     private static Eden instance;
 
@@ -38,6 +45,7 @@ public final class Eden {
     private GsonBuilder deserializer;
 
     private Map<String, EdenRepository> repositories;
+    private final EdenInjector edenInjector;
 
     public static Eden getInstance() {
         if(instance == null) {
@@ -61,6 +69,10 @@ public final class Eden {
             .disableHtmlEscaping()
             .setPrettyPrinting()
             .serializeNulls();
+
+        edenInjector = new EdenInjector();
+        edenInjector.addAnnotation(new EdenBibleDefinition());
+        edenInjector.addAnnotation(new EdenBibleListDefinition());
     }
 
     public Metadata getMetadata() {
@@ -112,15 +124,34 @@ public final class Eden {
         this.repositories.put(alias, repository);
     }
 
-    public EdenRepository getRepository(Class<? extends EdenRepository> respositoryClass) {
-        return this.repositories.getOrDefault(respositoryClass.getName(), null);
+    /**
+     * Get a repository by its Class
+     *
+     * @param repositoryClass  the class of the repository to find
+     * @return  the repository if it exists, null otherwise
+     */
+    public EdenRepository getRepository(Class<? extends EdenRepository> repositoryClass) {
+        return this.repositories.getOrDefault(repositoryClass.getName(), null);
     }
 
+    /**
+     * Get a repository by its String alias. Alternatively, since all Repository keys are strings, the 'alias' could
+     * be the fully-qualified class name of the desired EdenRepository instance.
+     *
+     * @param repositoryAlias  the alias or fully-qualified class name of the repository to find
+     * @return  the repository if it exists, null otherwise
+     */
     public EdenRepository getRepository(String repositoryAlias) {
         return this.repositories.getOrDefault(repositoryAlias, null);
     }
 
+    /**
+     * Bootstrap the Eden dependency injection for a given object. Eden will search the object for all registered
+     * annotations and attempt to inject objects into each annotated field.
+     *
+     * @param object  the annotated object to inject dependencies into
+     */
     public void inject(Object object) {
-        AnnotationProcessor.getInstance().processAnnotations(object);
+        edenInjector.processAnnotations(object);
     }
 }

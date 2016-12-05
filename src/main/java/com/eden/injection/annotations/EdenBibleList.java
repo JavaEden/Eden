@@ -1,4 +1,4 @@
-package com.eden.annotations;
+package com.eden.injection.annotations;
 
 import com.eden.EdenRepository;
 

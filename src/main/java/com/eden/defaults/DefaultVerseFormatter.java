@@ -13,6 +13,7 @@ import java.util.Random;
  * words with dashed lines, do a combination of both first letters and dashed lines, or randomly
  * replace words with dashes given a threshold between 0 and 1.
  */
+// TODO: Remove this formatter and put it with the Scripture Now! app. It does not belong in the core library
 public class DefaultVerseFormatter implements VerseFormatter {
     protected AbstractVerse verse;
 

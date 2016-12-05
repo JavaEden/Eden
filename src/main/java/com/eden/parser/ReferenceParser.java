@@ -7,209 +7,179 @@ import java.util.ArrayList;
 /**
  * The class used to parse a String into Reference objects. Uses the following grammar
  * <p>
- * Passage ::= book (punctuation) chapter ((punctuation) verseList) Verse ::= book (punctuation)
- * chapter (punctuation) verse
+ * Passage ::= book (punctuation) chapter ((punctuation) verseList)
  * <p>
- * number ::= { [0..9] } word ::= { [a..zA..Z] } punctuation ::= [;:,.-\/]
+ * number ::= { [0..9] }
+ * word ::= { [a..zA..Z] }
+ * punctuation ::= [;:,.-\/]
  * <p>
- * book ::= ([123]) word+ chapter ::= number verse ::= number
+ * book ::= ([123]) word+
+ * chapter ::= number
+ * verse ::= number
  * <p>
- * verseSequence ::= verse punctuation verse verseList ::= { [verse | verseSequence] punctuation }
+ * verseSequence ::= verse punctuation verse
+ * verseList ::= { [verse | verseSequence] punctuation }
  */
+
+//TODO: Replace all hard references to punctuation or word-punctuation with special enums in Token
 public class ReferenceParser {
-	Reference.Builder builder;
+    private Reference.Builder builder;
 
-	TokenStream ts;
+    private TokenStream ts;
 
-	public ReferenceParser(Reference.Builder builder) {
-		this.builder = builder;
-	}
+    public ReferenceParser(Reference.Builder builder) {
+        this.builder = builder;
+    }
 
-	//verse ::= book chapter (punctuation) verse
-	public Reference.Builder getVerseReference(String reference) {
-		ts = new TokenStream(reference);
+    //Passage ::= book (punctuation) chapter ((punctuation) verseList)
+    public Reference.Builder getPassageReference(String reference) {
+        return getPassageReference(new TokenStream(reference));
+    }
 
-		book();
-		punctuation();
-		chapter();
-		punctuation();
-		verse();
+    private Reference.Builder getPassageReference(TokenStream reference) {
+        ts = reference;
 
-		return builder;
-	}
+        book();
+        punctuation();
+        chapter();
+        punctuation();
+        verseList();
 
-	//Passage ::= book (punctuation) chapter ((punctuation) verseList)
-	public Reference.Builder getPassageReference(String reference) {
-		return getPassageReference(new TokenStream(reference));
-	}
+        return builder;
+    }
 
-	public Reference.Builder getPassageReference(TokenStream reference) {
-		ts = reference;
+    //punctuation ::= [;:,.-\/]
+    private boolean punctuation() {
+        Token a = ts.get();
 
-		book();
-		punctuation();
-		chapter();
-		punctuation();
-		verseList();
+        //if token is punctuation, either character or word
+        if(a != null && a.isPunctuation()) {
+            return true;
+        }
+        else {
+            ts.unget(a);
+            return false;
+        }
+    }
 
-		return builder;
-	}
+    //book ::= ([123]) word+
+    private void book() {
+        Token a = ts.get();
+        boolean includesNumber;
 
-	//punctuation ::= [;:,.-\/]
-	private boolean punctuation() {
-		Token a = ts.get();
+        //optional number between 1 and 3
+        if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() <= 3 && a.getIntValue() > 0) {
+            //token was valid number, leave it out and continue parsing book
+            includesNumber = true;
+        }
+        else {
+            //token wasn't a valid number, put it back in and continue parsing book
+            ts.unget(a);
+            includesNumber = false;
+        }
 
-		//if actual token is punctuation
-		if(a != null && (
-				a.equals(Token.Type.COLON) ||
-						a.equals(Token.Type.SEMICOLON) ||
-						a.equals(Token.Type.COMMA) ||
-						a.equals(Token.Type.DOT) ||
-						a.equals(Token.Type.DASH) ||
-						a.equals(Token.Type.SLASH) ||
-						a.equals(Token.Type.BACKSLASH))) {
+        //mandatory set of words before a number
+        ArrayList<Token> tokens = new ArrayList<>();
 
-			return true;
-		}
-		//if token is a word that implies punctuation
-		else {
-			if(a != null && a.equals(Token.Type.WORD)) {
-				if(a.getStringValue().equalsIgnoreCase("and") ||
-						a.getStringValue().equalsIgnoreCase("through") ||
-						a.getStringValue().equalsIgnoreCase("to")) {
+        while(true) {
+            Token t = ts.get();
+            if(t != null && t.equals(Token.Type.WORD)) {
+                tokens.add(t);
+                continue;
+            }
+            else {
+                ts.unget(t);
+                break;
+            }
+        }
 
-					return true;
-				}
-			}
-		}
+        String bookName = (includesNumber) ? a.getIntValue() + " " : "";
 
-		ts.unget(a);
-		return false;
-	}
+        for(Token t : tokens) {
+            bookName += t.getStringValue() + " ";
+        }
 
-	//book ::= ([123]) word+
-	private void book() {
-		Token a = ts.get();
-		boolean includesNumber;
+        bookName = bookName.trim();
 
-		//optional number between 1 and 3
-		if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() <= 3 && a.getIntValue() > 0) {
-			//token was valid number, leave it out and continue parsing book
-			includesNumber = true;
-		}
-		else {
-			//token wasn't a valid number, put it back in and continue parsing book
-			ts.unget(a);
-			includesNumber = false;
-		}
+        builder.setBook(bookName);
+    }
 
-		//mandatory set of words before a number
-		ArrayList<Token> tokens = new ArrayList<>();
+    //chapter ::= number
+    private boolean chapter() {
+        Token a = ts.get();
+        if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
+            builder.setChapter(a.getIntValue());
+            return true;
+        }
+        else {
+            ts.unget(a);
+            return false;
+        }
+    }
 
-		while(true) {
-			Token t = ts.get();
-			if(t != null && t.equals(Token.Type.WORD)) {
-				tokens.add(t);
-				continue;
-			}
-			else {
-				ts.unget(t);
-				break;
-			}
-		}
+    //verse ::= number
+    private boolean verse() {
+        Token a = ts.get();
+        if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
+            builder.addVerse(a.getIntValue());
+            return true;
+        }
+        else {
+            ts.unget(a);
+            return false;
+        }
+    }
 
-		String bookName = (includesNumber) ? a.getIntValue() + " " : "";
+    //verseSequence ::= number dash number
+    private boolean verseSequence() {
+        Token a = ts.get();
+        if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
+            int numA = a.getIntValue();
 
-		for(Token t : tokens) {
-			bookName += t.getStringValue() + " ";
-		}
+            Token dash = ts.get();
+            if(dash != null &&
+                    (dash.equals(Token.Type.DASH) || Token.getTokenFromWord(dash.getStringValue()).equals(Token.Type.DASH))) {
 
-		bookName = bookName.trim();
+                Token b = ts.get();
+                if(b != null && b.equals(Token.Type.NUMBER) && b.getIntValue() > 0) {
+                    int numB = b.getIntValue();
 
-		builder.setBook(bookName);
-	}
+                    for(int i = numA; i <= numB; i++) {
+                        builder.addVerse(i);
+                    }
+                    return true;
+                }
+                else {
+                    ts.unget(b);
+                    ts.unget(dash);
+                    ts.unget(a);
+                    return false;
+                }
+            }
+            else {
+                ts.unget(dash);
+                ts.unget(a);
+                return false;
+            }
+        }
+        else {
+            ts.unget(a);
+            return false;
+        }
+    }
 
-	//chapter ::= number
-	private boolean chapter() {
-		Token a = ts.get();
-		if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
-			builder.setChapter(a.getIntValue());
-			return true;
-		}
-		else {
-			ts.unget(a);
-			return false;
-		}
-	}
+    //verseList ::= { [verse | verseSequence] comma }
+    private void verseList() {
+        while(true) {
+            if(!verseSequence()) {
+                if(!verse()) {
+                    return;
+                }
+            }
 
-	//verse ::= number
-	private boolean verse() {
-		Token a = ts.get();
-		if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
-			builder.addVerse(a.getIntValue());
-			return true;
-		}
-		else {
-			ts.unget(a);
-			return false;
-		}
-	}
-
-	//verseSequence ::= number dash number
-	private boolean verseSequence() {
-		Token a = ts.get();
-		if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
-			int numA = a.getIntValue();
-
-			Token dash = ts.get();
-			if(dash != null &&
-					(dash.equals(Token.Type.DASH) ||
-							(dash.equals(Token.Type.WORD) && dash.getStringValue().equalsIgnoreCase(
-									"through"
-							)) ||
-							(dash.equals(Token.Type.WORD) && dash.getStringValue()
-							                                     .equalsIgnoreCase("to")))) {
-
-				Token b = ts.get();
-				if(b != null && b.equals(Token.Type.NUMBER) && b.getIntValue() > 0) {
-					int numB = b.getIntValue();
-
-					for(int i = numA; i <= numB; i++) {
-						builder.addVerse(i);
-					}
-					return true;
-				}
-				else {
-					ts.unget(b);
-					ts.unget(dash);
-					ts.unget(a);
-					return false;
-				}
-			}
-			else {
-				ts.unget(dash);
-				ts.unget(a);
-				return false;
-			}
-		}
-		else {
-			ts.unget(a);
-			return false;
-		}
-	}
-
-	//verseList ::= { [verse | verseSequence] comma }
-	private void verseList() {
-		while(true) {
-			if(!verseSequence()) {
-				if(!verse()) {
-					return;
-				}
-			}
-
-			if(!punctuation()) {
-				return;
-			}
-		}
-	}
+            if(!punctuation()) {
+                return;
+            }
+        }
+    }
 }
