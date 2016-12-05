@@ -14,6 +14,7 @@ import com.eden.bible.Reference;
 public abstract class EdenRepository {
 
     private Bible selectedBible;
+    private BibleList bibleList;
 
     public EdenRepository() {
 
@@ -54,6 +55,10 @@ public abstract class EdenRepository {
         Eden.getInstance().put(this.getClass().getName() + "_selectedBibleId", selectedBible.getId());
     }
 
+    public void setBibleList(BibleList bibleList) {
+        this.bibleList = bibleList;
+    }
+
     public Passage lookupVerse(String reference) {
         Reference.Builder builder = new Reference.Builder();
         builder.setBible(getSelectedBible());
@@ -71,6 +76,39 @@ public abstract class EdenRepository {
         }
 
         return passage;
+    }
+
+    public Passage lookupVerse(String reference, String bibleId) {
+        Reference.Builder builder = new Reference.Builder();
+        builder.setBible(getBible(bibleId));
+        builder.parseReference(reference);
+        Reference ref = builder.create();
+
+        Passage passage;
+        try {
+            passage = getPassageClass().getConstructor(Reference.class).newInstance(ref);
+            passage.get();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            passage = null;
+        }
+
+        return passage;
+    }
+
+    public BibleList getBibleList() {
+        if(bibleList == null) {
+            try {
+                bibleList = getBibleListClass().getConstructor().newInstance();
+                bibleList.get();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return bibleList;
     }
 
     public abstract Class<? extends BibleList> getBibleListClass();

@@ -41,4 +41,13 @@ public abstract class BibleList<T extends Bible> {
 	public void setBibles(HashMap<String, T> bibles) {
 		this.bibles = bibles;
 	}
+
+    /**
+     * Fetch the BibleList's data given it's current state.
+     *
+     * @return boolean  true if the BibleList's data was successfully retrieved, false otherwise
+     */
+    public boolean get() {
+        return true;
+    }
 }
