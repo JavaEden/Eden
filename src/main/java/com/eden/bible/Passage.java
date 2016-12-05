@@ -91,10 +91,10 @@ public class Passage extends AbstractVerse {
 
             for (int i = 0; i < verses.size(); i++) {
                 if (verses.get(i) != null)
-                    text += verses.get(i).getText();
+                    text += verses.get(i).getText() + " ";
             }
 
-            return text;
+            return text.trim();
         } else {
             return "";
         }
