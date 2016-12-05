@@ -3,7 +3,6 @@ package com.eden;
 
 import com.eden.bible.Bible;
 import com.eden.bible.BibleList;
-import com.eden.bible.Book;
 import com.eden.bible.Passage;
 import com.eden.bible.Reference;
 
@@ -14,13 +13,13 @@ import com.eden.bible.Reference;
  */
 public abstract class EdenRepository {
 
-    private Bible<? extends Book> selectedBible;
+    private Bible selectedBible;
 
     public EdenRepository() {
 
     }
 
-    public Bible<? extends Book> getSelectedBible() {
+    public Bible getSelectedBible() {
         if(selectedBible == null) {
             try {
                 selectedBible = getBibleClass().getConstructor().newInstance();
@@ -35,7 +34,22 @@ public abstract class EdenRepository {
         return selectedBible;
     }
 
-    public void setSelectedBible(Bible<? extends Book> selectedBible) {
+    public Bible getBible(String id) {
+        if(selectedBible == null) {
+            try {
+                selectedBible = getBibleClass().getConstructor().newInstance();
+                selectedBible.setId(id);
+                selectedBible.get();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return selectedBible;
+    }
+
+    public void setSelectedBible(Bible selectedBible) {
         this.selectedBible = selectedBible;
         Eden.getInstance().put(this.getClass().getName() + "_selectedBibleId", selectedBible.getId());
     }
@@ -59,7 +73,7 @@ public abstract class EdenRepository {
         return passage;
     }
 
-    public abstract Class<? extends BibleList<?>> getBibleListClass();
+    public abstract Class<? extends BibleList> getBibleListClass();
     public abstract Class<? extends Bible> getBibleClass();
     public abstract Class<? extends Passage> getPassageClass();
 }
