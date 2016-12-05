@@ -36,7 +36,7 @@ public class Passage extends AbstractVerse {
                         .setChapter(this.reference.getChapter())
                         .setVerses(verseNum).create();
 
-                Verse verse = new Verse(reference);
+                Verse verse = verseClass.getConstructor(Reference.class).newInstance(ref);
 
                 this.verses.add(verse);
             } catch (Exception e) {
@@ -46,7 +46,7 @@ public class Passage extends AbstractVerse {
     }
 
     public Class<? extends Verse> getVerseClass() {
-        return null;
+        return Verse.class;
     }
 
     /**

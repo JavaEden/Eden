@@ -13,4 +13,5 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.github.cjbrooks12:Clog:v1.0.0'
 }

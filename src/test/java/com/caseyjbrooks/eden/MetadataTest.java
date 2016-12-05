@@ -4,7 +4,6 @@ import com.eden.bible.Metadata;
 import com.eden.bible.Reference;
 import com.eden.bible.Verse;
 import com.eden.simple.SimpleBook;
-import com.eden.simple.SimpleVerse;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class MetadataTest {
 
 	@Test
 	public void testAddingKeys() throws Throwable {
-		Verse verseA = new SimpleVerse(
+		Verse verseA = new Verse(
 				new Reference.Builder()
 						.setBook(new SimpleBook())
 						.setChapter(3)
@@ -63,7 +62,7 @@ public class MetadataTest {
 		verseA.setMetadata(metadataA);
 
 		//create a second Metadata object to test comparison of all types
-		Verse verseB = new SimpleVerse(new Reference.Builder()
+		Verse verseB = new Verse(new Reference.Builder()
 				.setBook(new SimpleBook())
 				.setChapter(3)
 				.setVerses(17)
@@ -79,7 +78,7 @@ public class MetadataTest {
 
 		//create a third Metadata object which has the same keys but different classes with those keys
 		//to ensure that it won't compare Objects of different type
-		Verse verseC = new SimpleVerse(new Reference.Builder()
+		Verse verseC = new Verse(new Reference.Builder()
 				.setBook(new SimpleBook())
 				.setChapter(3)
 				.setVerses(18)
@@ -158,52 +157,52 @@ public class MetadataTest {
 		Metadata.MultiComparator multiComparator = new Metadata.MultiComparator(comparators);
 
 		ArrayList<Verse> verses = new ArrayList<>();
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
 					.setVerses(10).create()));
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
 					.setVerses(9).create()));
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
 					.setVerses(8).create()));
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
 					.setVerses(7).create()));
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
 					.setVerses(6).create()));
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
 					.setVerses(5).create()));
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
 					.setVerses(4).create()));
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
 					.setVerses(3).create()));
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
 					.setVerses(2).create()));
-		verses.add(new SimpleVerse(
+		verses.add(new Verse(
 				new Reference.Builder()
 					.setBook(new SimpleBook())
 					.setChapter(1)
