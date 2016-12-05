@@ -1,6 +1,6 @@
-package com.caseyjbrooks.eden.providers.simple;
+package com.eden.simple;
 
-import com.caseyjbrooks.eden.bible.Book;
+import com.eden.bible.Book;
 
 public class SimpleBook extends Book {
 

@@ -1,6 +1,6 @@
-package com.caseyjbrooks.eden.providers.simple;
+package com.eden.simple;
 
-import com.caseyjbrooks.eden.bible.Bible;
+import com.eden.bible.Bible;
 
 public class SimpleBible extends Bible<SimpleBook> {
 	@Override

@@ -1,6 +1,6 @@
-package com.caseyjbrooks.eden.parser;
+package com.eden.parser;
 
-import com.caseyjbrooks.eden.bible.Reference;
+import com.eden.bible.Reference;
 
 import java.util.ArrayList;
 

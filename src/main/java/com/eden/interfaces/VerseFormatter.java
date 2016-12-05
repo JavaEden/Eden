@@ -1,6 +1,6 @@
-package com.caseyjbrooks.eden.interfaces;
+package com.eden.interfaces;
 
-import com.caseyjbrooks.eden.bible.AbstractVerse;
+import com.eden.bible.AbstractVerse;
 
 /**
  * Class to format the text output of a Verse object. Rather than setting flags on the Verse itself,

@@ -1,7 +1,7 @@
-package com.caseyjbrooks.eden;
+package com.eden;
 
-import com.caseyjbrooks.eden.bible.Metadata;
-import com.caseyjbrooks.eden.bible.Reference;
+import com.eden.bible.Metadata;
+import com.eden.bible.Reference;
 import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public final class Eden {
     private GsonBuilder serializer;
     private GsonBuilder deserializer;
 
-    private Map<Class<? extends EdenRepository>, EdenRepository> repositories;
+    private Map<String, EdenRepository> repositories;
 
     public static Eden getInstance() {
         if(instance == null) {
@@ -79,11 +79,25 @@ public final class Eden {
         this.deserializer = deserializer;
     }
 
+    /**
+     * Register a new EdenRepository
+     *
+     * @param repository  the repository instance
+     */
     public void registerRepository(EdenRepository repository) {
-        this.repositories.put(repository.getClass(), repository);
+        this.repositories.put(repository.getClass().getName(), repository);
+    }
+
+    public void registerRepository(EdenRepository repository, String alias) {
+        this.repositories.put(repository.getClass().getName(), repository);
+        this.repositories.put(alias, repository);
     }
 
     public EdenRepository getRepository(Class<? extends EdenRepository> respositoryClass) {
-        return this.repositories.getOrDefault(respositoryClass, null);
+        return this.repositories.getOrDefault(respositoryClass.getName(), null);
+    }
+
+    public EdenRepository getRepository(String repositoryAlias) {
+        return this.repositories.getOrDefault(repositoryAlias, null);
     }
 }

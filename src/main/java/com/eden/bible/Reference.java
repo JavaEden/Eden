@@ -1,10 +1,15 @@
-package com.caseyjbrooks.eden.bible;
+package com.eden.bible;
 
-import com.caseyjbrooks.eden.parser.ReferenceParser;
-import com.caseyjbrooks.eden.providers.simple.SimpleBible;
-import com.caseyjbrooks.eden.providers.simple.SimpleBook;
-import com.caseyjbrooks.eden.utils.TextUtils;
-import com.google.gson.*;
+import com.eden.parser.ReferenceParser;
+import com.eden.simple.SimpleBible;
+import com.eden.simple.SimpleBook;
+import com.eden.utils.TextUtils;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -17,7 +22,7 @@ import java.util.List;
  * the {@link Bible} it refers to is constant, as well as the {@link Book} in that Bible and the
  * chapter in that book. The list of verses cannot be modified once created.
  * <p>
- * To create a reference, use a {@link com.caseyjbrooks.eden.bible.Reference.Builder}
+ * To create a reference, use a {@link Reference.Builder}
  * and set modify the properties as needed or parse raw user input.
  * <p>
  * References can be compared to any other References, and in this way, allows Passages from multiple
@@ -44,7 +49,7 @@ public final class Reference implements Comparable<Reference> {
 	 * @param chapter
 	 * @param verses
 	 *
-	 * @see com.caseyjbrooks.eden.bible.Reference.Builder
+	 * @see Reference.Builder
 	 */
 	private Reference(Bible bible, Book book, int chapter, ArrayList<Integer> verses) {
 		this.bible = bible;

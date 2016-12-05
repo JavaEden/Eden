@@ -1,4 +1,4 @@
-package com.caseyjbrooks.eden.parser;
+package com.eden.parser;
 
 public class Token {
 	public enum Type {

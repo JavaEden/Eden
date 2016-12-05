@@ -1,8 +1,8 @@
-package com.caseyjbrooks.eden.providers.simple;
+package com.eden.simple;
 
-import com.caseyjbrooks.eden.bible.Passage;
-import com.caseyjbrooks.eden.bible.Reference;
-import com.caseyjbrooks.eden.bible.Verse;
+import com.eden.bible.Passage;
+import com.eden.bible.Reference;
+import com.eden.bible.Verse;
 
 public class SimplePassage extends Passage {
 	String text;

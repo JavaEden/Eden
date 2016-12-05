@@ -1,7 +1,7 @@
-package com.caseyjbrooks.eden.providers.simple;
+package com.eden.simple;
 
-import com.caseyjbrooks.eden.bible.Reference;
-import com.caseyjbrooks.eden.bible.Verse;
+import com.eden.bible.Reference;
+import com.eden.bible.Verse;
 
 public class SimpleVerse extends Verse {
 	public SimpleVerse(Reference reference) {

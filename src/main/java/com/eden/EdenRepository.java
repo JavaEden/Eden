@@ -1,11 +1,11 @@
-package com.caseyjbrooks.eden;
+package com.eden;
 
 
-import com.caseyjbrooks.eden.bible.Bible;
-import com.caseyjbrooks.eden.bible.BibleList;
-import com.caseyjbrooks.eden.bible.Book;
-import com.caseyjbrooks.eden.bible.Passage;
-import com.caseyjbrooks.eden.bible.Reference;
+import com.eden.bible.Bible;
+import com.eden.bible.BibleList;
+import com.eden.bible.Book;
+import com.eden.bible.Passage;
+import com.eden.bible.Reference;
 
 /**
  * An interface for getting verse data from an abstract repository, which might be from a database or from, a RESTful

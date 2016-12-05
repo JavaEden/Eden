@@ -1,10 +1,10 @@
 package com.caseyjbrooks.eden;
 
-import com.caseyjbrooks.eden.bible.Metadata;
-import com.caseyjbrooks.eden.bible.Reference;
-import com.caseyjbrooks.eden.bible.Verse;
-import com.caseyjbrooks.eden.providers.simple.SimpleBook;
-import com.caseyjbrooks.eden.providers.simple.SimpleVerse;
+import com.eden.bible.Metadata;
+import com.eden.bible.Reference;
+import com.eden.bible.Verse;
+import com.eden.simple.SimpleBook;
+import com.eden.simple.SimpleVerse;
 import org.junit.Test;
 
 import java.util.ArrayList;

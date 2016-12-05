@@ -1,7 +1,8 @@
-package com.caseyjbrooks.eden.bible;
+package com.eden.bible;
 
-import com.caseyjbrooks.eden.defaults.DefaultVerseFormatter;
-import com.caseyjbrooks.eden.interfaces.VerseFormatter;
+
+import com.eden.defaults.DefaultVerseFormatter;
+import com.eden.interfaces.VerseFormatter;
 
 /**
  * An abstract implementation of a Verse in the Bible. A verse represents a location and its text,

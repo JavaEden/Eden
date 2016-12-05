@@ -1,4 +1,4 @@
-package com.caseyjbrooks.eden.parser;
+package com.eden.parser;
 
 import java.util.LinkedList;
 import java.util.Stack;

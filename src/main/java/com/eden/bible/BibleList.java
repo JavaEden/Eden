@@ -1,4 +1,4 @@
-package com.caseyjbrooks.eden.bible;
+package com.eden.bible;
 
 import java.util.HashMap;
 import java.util.Map;

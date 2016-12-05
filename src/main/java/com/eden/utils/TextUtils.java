@@ -1,4 +1,4 @@
-package com.caseyjbrooks.eden.utils;
+package com.eden.utils;
 
 public class TextUtils {
 

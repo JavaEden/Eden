@@ -1,4 +1,4 @@
-package com.caseyjbrooks.eden.defaults;
+package com.eden.defaults;
 
 public class DefaultBible {
     public static int[][] defaultBookVerseCount = new int[][]{

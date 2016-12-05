@@ -1,4 +1,4 @@
-package com.caseyjbrooks.eden.bible;
+package com.eden.bible;
 
 /**
  * A base class for simplest complete unit of interfaces in this library. Each verse contains exactly one

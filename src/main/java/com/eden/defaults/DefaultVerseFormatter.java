@@ -1,7 +1,7 @@
-package com.caseyjbrooks.eden.defaults;
+package com.eden.defaults;
 
-import com.caseyjbrooks.eden.bible.AbstractVerse;
-import com.caseyjbrooks.eden.interfaces.VerseFormatter;
+import com.eden.bible.AbstractVerse;
+import com.eden.interfaces.VerseFormatter;
 
 import java.util.Random;
 
