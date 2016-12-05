@@ -4,7 +4,7 @@ import com.caseyjbrooks.eden.bible.Passage;
 import com.caseyjbrooks.eden.bible.Reference;
 import com.caseyjbrooks.eden.bible.Verse;
 
-public class SimplePassage extends Passage<SimpleVerse> {
+public class SimplePassage extends Passage {
 	String text;
 
 	public SimplePassage(Reference reference) {

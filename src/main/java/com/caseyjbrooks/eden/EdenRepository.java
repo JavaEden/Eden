@@ -61,5 +61,5 @@ public abstract class EdenRepository {
 
     public abstract Class<? extends BibleList<?>> getBibleListClass();
     public abstract Class<? extends Bible> getBibleClass();
-    public abstract Class<? extends Passage<?>> getPassageClass();
+    public abstract Class<? extends Passage> getPassageClass();
 }

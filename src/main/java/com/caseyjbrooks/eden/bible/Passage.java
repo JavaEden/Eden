@@ -10,11 +10,10 @@ import java.util.List;
  * use some implementation of Passage as opposed to Verse, because it is more powerful, but when set
  * with just a single verse, acts very similar to the Verse class.
  *
- * @param <T> the type of Verse that is contained in this Passage's list of verses
  * @see Verse
  */
-public class Passage<T extends Verse> extends AbstractVerse {
-    protected List<T> verses;
+public class Passage extends AbstractVerse {
+    protected List<Verse> verses;
 
     /**
      * Create this Passage with the given Reference. Upon creation, an unmodifiable list of Verses
@@ -37,7 +36,7 @@ public class Passage<T extends Verse> extends AbstractVerse {
                         .setChapter(this.reference.getChapter())
                         .setVerses(verseNum).create();
 
-                T verse = (T) verseClass.getDeclaredConstructor(Reference.class).newInstance(ref);
+                Verse verse = new Verse(reference);
 
                 this.verses.add(verse);
             } catch (Exception e) {
@@ -55,7 +54,7 @@ public class Passage<T extends Verse> extends AbstractVerse {
      *
      * @return
      */
-    public List<T> getVerses() {
+    public List<Verse> getVerses() {
         return verses;
     }
 
@@ -67,7 +66,7 @@ public class Passage<T extends Verse> extends AbstractVerse {
             text += verseFormatter.onPreFormat(this);
 
             for (int i = 0; i < verses.size(); i++) {
-                T verse = verses.get(i);
+                Verse verse = verses.get(i);
 
                 text += verseFormatter.onFormatVerseStart(verse.getVerseNumber());
                 text += verseFormatter.onFormatText(verse.getText());
