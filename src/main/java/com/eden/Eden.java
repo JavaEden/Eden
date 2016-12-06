@@ -1,12 +1,10 @@
 package com.eden;
 
-import com.eden.bible.AbstractVerse;
 import com.eden.bible.Metadata;
 import com.eden.bible.Reference;
 import com.eden.injection.EdenInjector;
 import com.eden.injection.annotations.EdenBibleDefinition;
 import com.eden.injection.annotations.EdenBibleListDefinition;
-import com.eden.utils.ReferenceExclusionStrategy;
 import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
@@ -65,7 +63,6 @@ public final class Eden {
             .disableHtmlEscaping()
             .setPrettyPrinting()
             .serializeNulls()
-            .setExclusionStrategies(new ReferenceExclusionStrategy())
             .registerTypeAdapter(Reference.class, new Reference.ReferenceJsonizer());
 
         this.deserializer = new GsonBuilder()
