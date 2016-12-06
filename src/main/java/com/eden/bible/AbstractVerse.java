@@ -3,6 +3,7 @@ package com.eden.bible;
 
 import com.eden.defaults.DefaultVerseFormatter;
 import com.eden.interfaces.VerseFormatter;
+import com.eden.utils.GsonExclude;
 
 /**
  * An abstract implementation of a Verse in the Bible. A verse represents a location and its text,
@@ -18,9 +19,9 @@ import com.eden.interfaces.VerseFormatter;
  * @see Reference
  */
 public abstract class AbstractVerse implements Comparable<AbstractVerse> {
-	protected final Reference reference;
-	protected VerseFormatter verseFormatter;
-	protected Metadata metadata;
+    @GsonExclude protected final Reference reference;
+    @GsonExclude protected VerseFormatter verseFormatter;
+    @GsonExclude protected Metadata metadata;
 	protected String id;
 
 	/**
