@@ -5,6 +5,7 @@ import com.eden.bible.Reference;
 import com.eden.injection.EdenInjector;
 import com.eden.injection.annotations.EdenBibleDefinition;
 import com.eden.injection.annotations.EdenBibleListDefinition;
+import com.eden.interfaces.KeyValueStore;
 import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
@@ -39,7 +40,7 @@ import java.util.Map;
 public final class Eden {
     private static Eden instance;
 
-    private Metadata metadata;
+    private KeyValueStore config;
 
     private GsonBuilder serializer;
     private GsonBuilder deserializer;
@@ -56,7 +57,7 @@ public final class Eden {
     }
 
     private Eden() {
-        this.metadata = new Metadata();
+        this.config = new Metadata();
         this.repositories = new HashMap<>();
 
         this.serializer = new GsonBuilder()
@@ -75,16 +76,12 @@ public final class Eden {
         edenInjector.addAnnotation(new EdenBibleListDefinition());
     }
 
-    public Metadata getMetadata() {
-        return metadata;
+    public KeyValueStore config() {
+        return config;
     }
 
-    public String get(String key) {
-        return metadata.getString(key, "");
-    }
-
-    public void put(String key, String value) {
-        metadata.putString(key, value);
+    public void setConfig(KeyValueStore config) {
+        this.config = config;
     }
 
     public GsonBuilder getSerializer() {

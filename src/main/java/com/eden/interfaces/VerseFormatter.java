@@ -8,6 +8,7 @@ import com.eden.bible.AbstractVerse;
  * consistent output, because the same VerseFormatter can be assigned to multiple Verses
  */
 public interface VerseFormatter {
+
 	//called before we begin formatting the actual verses.
 	//i.e. to print the reference before all its text
 	String onPreFormat(AbstractVerse verse);

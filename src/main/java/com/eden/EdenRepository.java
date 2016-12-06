@@ -24,7 +24,7 @@ public abstract class EdenRepository {
         if(selectedBible == null) {
             try {
                 selectedBible = getBibleClass().getConstructor().newInstance();
-                selectedBible.setId(Eden.getInstance().get(this.getClass().getName() + "_selectedBibleId"));
+                selectedBible.setId(Eden.getInstance().config().getString(this.getClass().getName() + "_selectedBibleId"));
                 selectedBible.get();
             }
             catch(Exception e) {
@@ -52,7 +52,7 @@ public abstract class EdenRepository {
 
     public void setSelectedBible(Bible selectedBible) {
         this.selectedBible = selectedBible;
-        Eden.getInstance().put(this.getClass().getName() + "_selectedBibleId", selectedBible.getId());
+        Eden.getInstance().config().putString(this.getClass().getName() + "_selectedBibleId", selectedBible.getId());
     }
 
     public void setBibleList(BibleList bibleList) {
