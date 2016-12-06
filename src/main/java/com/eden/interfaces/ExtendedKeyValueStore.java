@@ -1,6 +1,6 @@
 package com.eden.interfaces;
 
-public interface TypedKeyValueStore extends KeyValueStore {
+public interface ExtendedKeyValueStore extends KeyValueStore {
 
     void putByte(String key, byte value);
     byte getByte(String key, byte defValue);

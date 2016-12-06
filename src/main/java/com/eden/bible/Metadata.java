@@ -1,7 +1,7 @@
 package com.eden.bible;
 
 import com.caseyjbrooks.clog.Clog;
-import com.eden.interfaces.TypedKeyValueStore;
+import com.eden.interfaces.ExtendedKeyValueStore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ import java.util.Set;
  * common key requires the classes of the Objects at that key are of the exact same class, and anything
  * other than an exact match, including any derived classes, will also throw a ClassCastException.
  */
-public final class Metadata implements TypedKeyValueStore {
+public final class Metadata implements ExtendedKeyValueStore {
     private Map<String, Object> items;
 
     /**
