@@ -206,20 +206,18 @@ public final class Metadata implements ExtendedKeyValueStore {
      * @param defValue    the default value to return if the key does not exist in the map.
      * @return
      */
-    private Object typedGet(String key, Class<?> targetClass, Object defValue) {
+    public Object typedGet(String key, Class<?> targetClass, Object defValue) {
         if (items.containsKey(key)) {
             Object item = items.get(key);
-            if (item != null) {
-                if (!targetClass.isAssignableFrom(item.getClass())) {
-                    throw new ClassCastException(Clog.format("Key [#{$1}] expected result of type [#{$2}], found [#{$3}]",
-                            key,
-                            targetClass.getName(),
-                            item.getClass().toString()
-                    ));
-                }
-                else {
-                    return targetClass.cast(item);
-                }
+            if (!targetClass.isAssignableFrom(item.getClass())) {
+                throw new ClassCastException(Clog.format("Key [#{$1}] expected result of type [#{$2}], found [#{$3}]",
+                        key,
+                        targetClass.getName(),
+                        item.getClass().toString()
+                ));
+            }
+            else {
+                return targetClass.cast(item);
             }
         }
         else {
