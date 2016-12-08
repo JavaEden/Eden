@@ -3,7 +3,12 @@ package com.eden.simple;
 import com.eden.bible.Bible;
 
 public class SimpleBible extends Bible<SimpleBook> {
-	@Override
+
+    public SimpleBible() {
+        this.books.add(new SimpleBook());
+    }
+
+    @Override
 	public void setName(String name) {
 		super.setName(name);
 

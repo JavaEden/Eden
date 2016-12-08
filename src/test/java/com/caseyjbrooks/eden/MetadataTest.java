@@ -12,7 +12,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.eden.bible.Metadata.Comparator.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -240,11 +239,11 @@ public class MetadataTest {
 
         }
 
-        assertThat(new Metadata.Comparator(KEY_REFERENCE_CANONICAL).compare(verseA, verseB), is(greaterThan(0)));
-        assertThat(new Metadata.Comparator(KEY_REFERENCE_CANONICAL).compare(verseB, verseA), is(lessThan(0)));
+        assertThat(new Metadata.Comparator(Metadata.Comparator.KEY_REFERENCE_CANONICAL).compare(verseA, verseB), is(greaterThan(0)));
+        assertThat(new Metadata.Comparator(Metadata.Comparator.KEY_REFERENCE_CANONICAL).compare(verseB, verseA), is(lessThan(0)));
 
-        assertThat(new Metadata.Comparator(KEY_REFERENCE_ALPHABETICAL).compare(verseA, verseB), is(lessThan(0)));
-        assertThat(new Metadata.Comparator(KEY_REFERENCE_ALPHABETICAL).compare(verseB, verseA), is(greaterThan(0)));
+        assertThat(new Metadata.Comparator(Metadata.Comparator.KEY_REFERENCE_ALPHABETICAL).compare(verseA, verseB), is(lessThan(0)));
+        assertThat(new Metadata.Comparator(Metadata.Comparator.KEY_REFERENCE_ALPHABETICAL).compare(verseB, verseA), is(greaterThan(0)));
 
 
         try {
@@ -396,7 +395,7 @@ public class MetadataTest {
         //start by sorting into position
         Collections.sort(verses, new Metadata.Comparator("POS"));
         //sort by reference
-        Collections.sort(verses, new Metadata.Comparator(KEY_REFERENCE_CANONICAL));
+        Collections.sort(verses, new Metadata.Comparator(Metadata.Comparator.KEY_REFERENCE_CANONICAL));
         String simpleSort4 = "";
         for (int i = 0; i < verses.size(); i++) {
             simpleSort4 += verses.get(i).getMetadata().getInt("POS");

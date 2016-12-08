@@ -114,7 +114,7 @@ public abstract class Book {
 	 *
 	 * @param chapters  the count of verses for every chapter in this Book
 	 */
-	public void setChapters(ArrayList<Integer> chapters) {
+	public void setChapters(List<Integer> chapters) {
 		this.chapters = chapters;
 	}
 
