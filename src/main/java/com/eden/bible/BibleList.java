@@ -21,6 +21,7 @@ public abstract class BibleList<T extends Bible> {
 	 * No-arg constructor is necessary to allow compatibility with
 	 */
 	public BibleList() {
+	    this.bibles = new HashMap<>();
 	}
 
 	/**
@@ -38,7 +39,7 @@ public abstract class BibleList<T extends Bible> {
 	 *
 	 * @param bibles  the map of keys to Bibles to set
 	 */
-	public void setBibles(HashMap<String, T> bibles) {
+	public void setBibles(Map<String, T> bibles) {
 		this.bibles = bibles;
 	}
 

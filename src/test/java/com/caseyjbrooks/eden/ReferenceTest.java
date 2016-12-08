@@ -1,7 +1,9 @@
 package com.caseyjbrooks.eden;
 
 /**
- * Created by cbrooks on 12/7/16.
+ * Tests that creation of Reference objects assuming the parser works correctly (see ParserTest). Testing covers public
+ * API for Reference.class and Reference.Builder.class. Assumes all other involved classes work flawlessly. Doesn't test
+ * for concurrency or extenuating circumstances caused by invalid state produced from reflection or anything else.
  */
 public class ReferenceTest {
 }

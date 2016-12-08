@@ -37,6 +37,9 @@ import java.util.Map;
 // TODO: ^ if I force GSON, I could make it easier to standardize the JSON api of this library, but it discourages third party integration
 // TODO: ^ if I allow other JSON parsers, I could do it like Spring and write wrappers for all the common parsers and includes them in this core lib, making them all conform to the same specificiations
 // TODO: Replace Metadata with a persistent key-value storage interface. Metadata should be for sorting verses, not persistence
+// TODO: Ensure consistent naming conventions throughout all classes
+// TODO: Ensure all classes have defined '.equals', '.hashcode', and 'Comparator' methods
+// TODO: Ensure any usage of List, Map, etc. are all exposed with the generic interface and not any explicit
 public final class Eden {
     private static Eden instance;
 

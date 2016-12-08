@@ -16,6 +16,11 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 
+/**
+ * Testing covers public API for Metadata.class. Assumes all other involved classes work flawlessly. Doesn't test for
+ * concurrency or extenuating circumstances caused by invalid state produced from inherited classes, reflection,
+ * or anything else.
+ */
 public class MetadataTest {
 
     @Test
