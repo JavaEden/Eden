@@ -6,12 +6,18 @@ apply plugin: 'jacoco'
 
 sourceCompatibility = 1.8
 
+configurations {
+    doclava
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
+    doclava 'com.github.JavaEden:doclava:v0.1.1'
+
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-library:1.3'
 
@@ -30,19 +36,15 @@ jacocoTestReport {
 
 check.dependsOn jacocoTestReport
 
-// Aciidoclet
+// Doclava
 //------------------------------------------------------------------------------
-
-configurations {
-    doclava
-}
 
 javadoc {
     source = sourceSets.main.allJava
 
     title = ""
 
-    options.docletpath = [file("libs/doclava-1.0.6.jar")]
+    options.docletpath.addAll(configurations.doclava)
     options.doclet = 'com.google.doclava.Doclava'
 }
 
