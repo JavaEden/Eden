@@ -1,6 +1,7 @@
 package com.caseyjbrooks.eden;
 
 import com.caseyjbrooks.eden.dummy.DummyBible;
+import com.caseyjbrooks.eden.dummy.DummyBibleList;
 import com.caseyjbrooks.eden.dummy.DummyBook;
 import com.eden.bible.Book;
 import org.junit.Test;
@@ -171,5 +172,15 @@ public void testBookVerseValidations() throws Throwable {
 
 // Test BibleList class functionality
 //----------------------------------------------------------------------------------------------------------------------
+
+    @Test
+    public void testBibleListGettersAndSetters() throws Throwable {
+        DummyBibleList bibleList = new DummyBibleList();
+
+        bibleList.setBibles(null);
+        assertThat(bibleList.getBibles(), is(nullValue()));
+
+        assertThat(bibleList.get(), is(true));
+    }
 
 }

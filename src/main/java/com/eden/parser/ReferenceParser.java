@@ -32,11 +32,11 @@ public class ReferenceParser {
     }
 
     //Passage ::= book (punctuation) chapter ((punctuation) verseList)
-    public Reference.Builder getPassageReference(String reference) {
-        return getPassageReference(new TokenStream(reference));
+    public Reference.Builder parse(String reference) {
+        return parse(new TokenStream(reference));
     }
 
-    private Reference.Builder getPassageReference(TokenStream reference) {
+    private Reference.Builder parse(TokenStream reference) {
         ts = reference;
 
         book();

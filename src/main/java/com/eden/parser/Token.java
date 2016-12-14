@@ -32,18 +32,17 @@ public class Token {
         this.intValue = value;
     }
 
-    public String getStringValue() { return stringValue; }
+    String getStringValue() { return stringValue; }
 
-    public int getIntValue() { return intValue; }
+    int getIntValue() { return intValue; }
 
     public boolean equals(Type type) { return this.type == type; }
 
-    public boolean isPunctuation() {
+    boolean isPunctuation() {
         return (isPunctuationCharacter() || isPunctuationWord());
     }
 
-    public boolean isPunctuationCharacter() {
-
+    boolean isPunctuationCharacter() {
         return this.equals(Token.Type.COLON) ||
             this.equals(Token.Type.SEMICOLON) ||
             this.equals(Token.Type.COMMA) ||
@@ -53,15 +52,18 @@ public class Token {
             this.equals(Token.Type.BACKSLASH);
     }
 
-    public boolean isPunctuationWord() {
+    boolean isPunctuationWord() {
         return this.equals(Token.Type.WORD) && getTokenFromWord(getStringValue()).isPunctuationCharacter();
     }
 
-    public static Token getTokenFromWord(String word) {
-        switch(word.toLowerCase()) {
-            case "and": return new Token(Type.COMMA);
-            case "through": return new Token(Type.DASH);
-            case "to": return new Token(Type.DASH);
+    static Token getTokenFromWord(String word) {
+
+        if(word != null) {
+            switch(word.toLowerCase()) {
+                case "and": return new Token(Type.COMMA);
+                case "through": return new Token(Type.DASH);
+                case "to": return new Token(Type.DASH);
+            }
         }
 
         return new Token(Type.WORD, word);

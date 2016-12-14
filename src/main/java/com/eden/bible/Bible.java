@@ -1,11 +1,14 @@
 package com.eden.bible;
 
+import com.eden.utils.TextUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-//TODO: decide whether I really want to keep language and languageEnglish
-//TODO: decide whether a Bible should have a Metadata object for itself to hold other information
+// TODO: decide whether I really want to keep language and languageEnglish
+// TODO: decide whether a Bible should have a Metadata object for itself to hold other information
+// TODO: give it a getter for the Book type, so that other classes, like Reference.Builder can dynamically create the appropriate Books for this Bible
 /**
  * A base class to give a verse the Bible translation or version that it is. A bible Bible should
  * have a full name, an abbreviation (which can be derived from the full name), and a list of Books
@@ -59,6 +62,13 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
      */
     public void setName(String name) {
         this.name = name;
+
+        if(TextUtils.isEmpty(this.abbreviation)) {
+            this.abbreviation = "";
+            for(String word : name.split("\\s")) {
+                this.abbreviation += word.charAt(0);
+            }
+        }
     }
 
     /**

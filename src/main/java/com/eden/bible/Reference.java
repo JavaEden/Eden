@@ -179,20 +179,20 @@ public final class Reference implements Comparable<Reference> {
 
 			if(nextChapter == 1) {
 				builder = next(TYPE_BOOK);
-				builder.setChapter(1);
-				builder.setVerses(this.verses);
+                builder.setDefaultChapter();
+                builder.setDefaultVerses();
 			}
 			else {
 				builder.setBook(this.book);
 				builder.setChapter(nextChapter);
-				builder.setVerses(this.verses);
+				builder.setDefaultVerses();
 			}
 		}
 		else if(type == TYPE_BOOK) {
 			Book nextBook = nextBook();
 			builder.setBook(nextBook);
-			builder.setChapter(this.chapter);
-			builder.setVerses(this.verses);
+			builder.setDefaultChapter();
+			builder.setDefaultVerses();
 		}
 
 		return builder;
@@ -253,7 +253,8 @@ public final class Reference implements Comparable<Reference> {
 
 			if(getFirstVerse() == 1) {
 				builder = previous(TYPE_CHAPTER);
-			}
+                builder.setVerses(builder.getBook().numVersesInChapter(builder.getBook().getChapters().size() - 1));
+            }
 			else {
 				builder.setBook(this.book);
 				builder.setChapter(this.chapter);
@@ -263,24 +264,20 @@ public final class Reference implements Comparable<Reference> {
 		else if(type == TYPE_CHAPTER) {
 			if(this.chapter == 1) {
 				builder = previous(TYPE_BOOK);
-			}
+                builder.setChapter(builder.getBook().getChapters().get(builder.getBook().getChapters().size() - 1));
+            }
 			else {
 				int previousChapter = previousChapter();
-				int lastVerseInPreviousChapter = this.book.numVersesInChapter(previousChapter);
-
 				builder.setBook(this.book);
 				builder.setChapter(previousChapter);
-				builder.setVerses(lastVerseInPreviousChapter);
+				builder.setDefaultVerses();
 			}
 		}
 		else if(type == TYPE_BOOK) {
 			Book previousBook = previousBook();
-			int lastChapterInPreviousBook = previousBook.numChapters();
-			int lastVerseInPreviousBook = previousBook.numVersesInChapter(previousBook.numChapters());
-
 			builder.setBook(previousBook);
-			builder.setChapter(lastChapterInPreviousBook);
-			builder.setVerses(lastVerseInPreviousBook);
+            builder.setDefaultChapter();
+            builder.setDefaultVerses();
 		}
 
 		return builder;
@@ -297,7 +294,7 @@ public final class Reference implements Comparable<Reference> {
 		if(bible.getBooks() != null && bible.getBooks().size() > 0) {
 			for(int i = 0; i < bible.getBooks().size(); i++) {
 				if(bible.getBooks().get(i).equals(this.book)) {
-					return (i > 1)
+					return (i >= 1)
 							? (Book) bible.getBooks().get(i - 1)
 							: (Book) bible.getBooks().get(bible.getBooks().size() - 1);
 				}
@@ -684,7 +681,7 @@ public final class Reference implements Comparable<Reference> {
 			setFlag(PARSED);
 
 			ReferenceParser parser = new ReferenceParser(this);
-			parser.getPassageReference(reference);
+			parser.parse(reference);
 
 			//if adding verses is allowed, all we need for a successful parse is a non-default book
 			//and chapter. If adding verses is prevented, we need non-default verses too
@@ -822,12 +819,22 @@ public final class Reference implements Comparable<Reference> {
 				return this;
 			}
 
-			this.verses = new ArrayList<>();
+            unsetFlag(DEFAULT_VERSES_FLAG);
+			boolean usedDefaultVerse = false;
+
+            this.verses = new ArrayList<>();
 			for(int verse : verses) {
 				addVerse(verse);
+				usedDefaultVerse = usedDefaultVerse || checkFlag(DEFAULT_VERSES_FLAG);
 			}
 
-			unsetFlag(DEFAULT_VERSES_FLAG);
+			if(usedDefaultVerse) {
+			    setFlag(DEFAULT_VERSES_FLAG);
+            }
+            else {
+                unsetFlag(DEFAULT_VERSES_FLAG);
+            }
+
 			return this;
 		}
 
@@ -844,12 +851,22 @@ public final class Reference implements Comparable<Reference> {
 				return this;
 			}
 
+            unsetFlag(DEFAULT_VERSES_FLAG);
+            boolean usedDefaultVerse = false;
+
 			this.verses = new ArrayList<>();
 			for(int verse : verses) {
 				addVerse(verse);
-			}
+                usedDefaultVerse = usedDefaultVerse || checkFlag(DEFAULT_VERSES_FLAG);
+            }
 
-			unsetFlag(DEFAULT_VERSES_FLAG);
+            if(usedDefaultVerse) {
+                setFlag(DEFAULT_VERSES_FLAG);
+            }
+            else {
+                unsetFlag(DEFAULT_VERSES_FLAG);
+            }
+
 			return this;
 		}
 
@@ -874,9 +891,10 @@ public final class Reference implements Comparable<Reference> {
 					verse = 1;
 					setFlag(DEFAULT_VERSES_FLAG);
 				}
-				else {
-					unsetFlag(DEFAULT_VERSES_FLAG);
-				}
+                else if((getBook().numVersesInChapter(chapter) != -1) && (verse > getBook().numVersesInChapter(chapter))) {
+                    verse = getBook().numVersesInChapter(chapter);
+                    setFlag(DEFAULT_VERSES_FLAG);
+                }
 
 				if(!verses.contains(verse)) {
 					this.verses.add(verse);

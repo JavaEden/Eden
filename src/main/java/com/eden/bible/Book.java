@@ -1,5 +1,7 @@
 package com.eden.bible;
 
+import com.eden.utils.TextUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,16 @@ public abstract class Book {
 	 */
 	public void setName(String name) {
 		this.name = name;
+
+		if(TextUtils.isEmpty(this.abbreviation)) {
+            if(name.length() > 3) {
+                this.abbreviation = name.substring(0, 3);
+            }
+            else {
+                this.abbreviation = name;
+            }
+
+        }
 	}
 
 	/**
