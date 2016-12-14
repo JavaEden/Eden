@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Metadata is a wrapper around a HashMap that maps Strings to {@link Comparable} Object types,
+ * Metadata is a wrapper around a HashMap that maps Strings to java.lang.Comparable Object types,
  * and has convenience methods for several common datatypes: int, long, boolean, and String. It is
  * designed to give users the ability to map additional properties to verses which can be used to sort
  * lists of verses. This map cannot make any assumptions about the objects it contains, and so will not
@@ -19,7 +19,7 @@ import java.util.Set;
  * implement the Comparable interface, or be added with an appropriate Comparator.
  * <p>
  * Metadata is generally typesafe, but should not be relied upon too heavily. Any of the convenience
- * methods for getting an Object out of the Metadata will throw a {@link ClassCastException} if the
+ * methods for getting an Object out of the Metadata will throw a java.lang.ClassCastException if the
  * object at that key does not match the return type. In addition, sorting pairs of Metadata by a
  * common key requires the classes of the Objects at that key are of the exact same class, and anything
  * other than an exact match, including any derived classes, will also throw a ClassCastException.

@@ -4,7 +4,6 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'jacoco'
 
-version = '0.0.1'
 sourceCompatibility = 1.8
 
 repositories {
@@ -20,6 +19,8 @@ dependencies {
     compile 'com.github.cjbrooks12:Clog:v1.0.0'
 }
 
+// Jacoco Code Coverage tasks
+//------------------------------------------------------------------------------
 jacocoTestReport {
     reports {
         xml.enabled = true
@@ -28,3 +29,38 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+// Aciidoclet
+//------------------------------------------------------------------------------
+
+configurations {
+    doclava
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+
+    title = ""
+
+    options.docletpath = [file("libs/doclava-1.0.6.jar")]
+    options.doclet = 'com.google.doclava.Doclava'
+}
+
+// Documentation generation tasks
+//------------------------------------------------------------------------------
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+
