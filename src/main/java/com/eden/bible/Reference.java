@@ -350,7 +350,7 @@ public final class Reference implements Comparable<Reference> {
 	 * allows a list of References to be sorted, which by extension, makes it easy to sort a list of
 	 * verses.
 	 *
-	 * RETURN VALUES (negative indicates lhs is less than rhs)
+	 * RETURN VALUES (negative indicates lhs is less than rhs, or earlier in the Bible)
 	 * 0: Verses are equal, since they point to the same verse
 	 * 1: Verses are adjacent
 	 * 2: Verses are not adjacent, but are in the same chapter
