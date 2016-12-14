@@ -33,23 +33,18 @@ jacocoTestReport {
         html.enabled = true
     }
 }
-
 check.dependsOn jacocoTestReport
 
-// Doclava
+// Documentation generation tasks using custom-styled Doclava doclet
 //------------------------------------------------------------------------------
-
 javadoc {
-    source = sourceSets.main.allJava
-
     title = ""
+    source = sourceSets.main.allJava
 
     options.docletpath.addAll(configurations.doclava)
     options.doclet = 'com.google.doclava.Doclava'
 }
 
-// Documentation generation tasks
-//------------------------------------------------------------------------------
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
@@ -64,5 +59,3 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
-
-
