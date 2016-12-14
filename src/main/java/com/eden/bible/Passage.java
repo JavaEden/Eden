@@ -59,7 +59,7 @@ public class Passage extends AbstractVerse {
     }
 
     @Override
-    public String getFormattedText() {
+    public String getText() {
         if (verses.size() > 0) {
             String text = "";
 
@@ -69,7 +69,7 @@ public class Passage extends AbstractVerse {
                 Verse verse = verses.get(i);
 
                 text += verseFormatter.onFormatVerseStart(verse.getVerseNumber());
-                text += verseFormatter.onFormatText(verse.getText());
+                text += verseFormatter.onFormatText(verse.getRawText());
 
                 if (i < verses.size() - 1) {
                     text += verseFormatter.onFormatVerseEnd();
@@ -85,13 +85,13 @@ public class Passage extends AbstractVerse {
     }
 
     @Override
-    public String getText() {
+    public String getRawText() {
         if (verses.size() > 0) {
             String text = "";
 
             for (int i = 0; i < verses.size(); i++) {
                 if (verses.get(i) != null)
-                    text += verses.get(i).getText() + " ";
+                    text += verses.get(i).getRawText() + " ";
             }
 
             return text.trim();

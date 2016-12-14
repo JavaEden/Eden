@@ -15,12 +15,12 @@ public class SimplePassage extends Passage {
 	}
 
 	@Override
-	public String getText() {
+	public String getRawText() {
 		return text;
 	}
 
 	@Override
-	public String getFormattedText() {
+	public String getText() {
 		String text = "";
 
 		text += verseFormatter.onPreFormat(this);

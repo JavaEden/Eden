@@ -56,7 +56,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
     }
 
     /**
-     * Set the VerseFormatter to be used when printing this verse with {@link AbstractVerse#getFormattedText()}
+     * Set the VerseFormatter to be used when printing this verse with {@link AbstractVerse#getText()}
      *
      * @param verseFormatter  the VerseFormatter to be used
      *
@@ -114,7 +114,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
      *
      * @return unformatted text of the verse
      */
-    public abstract String getText();
+    public abstract String getRawText();
 
     /**
      * Get the formatted text of this verse, using the set Formatter.
@@ -123,7 +123,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
      *
      * @see #setVerseFormatter(VerseFormatter)
      */
-    public abstract String getFormattedText();
+    public abstract String getText();
 
     /**
      * Serialize this verse into a string that can be used to restore this verse from persistent
