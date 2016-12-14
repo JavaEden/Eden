@@ -6,4 +6,5 @@ package com.caseyjbrooks.eden;
  * inherited classes, reflection, or anything else.
  */
 public class VersesTest {
+
 }

@@ -24,24 +24,24 @@ public class BiblesTest {
 
 // Test Book class functionality
 //----------------------------------------------------------------------------------------------------------------------
-@Test
-public void testBookVerseValidations() throws Throwable {
-    Book book = new DummyBook(1, "Dummy Book", 45, 22, 76, 12, 5);
+    @Test
+    public void testBookVerseValidations() {
+        Book book = new DummyBook(1, "Dummy Book", 45, 22, 76, 12, 5);
 
-    assertThat(book.numChapters(), is(equalTo(5)));
-    assertThat(book.numVersesInChapter(3), is(equalTo(76)));
-    assertThat(book.numVersesInChapter(0), is(equalTo(-1)));
-    assertThat(book.numVersesInChapter(6), is(equalTo(-1)));
-    assertThat(book.validateChapter(5), is(true));
-    assertThat(book.validateChapter(6), is(false));
-    assertThat(book.validateVerseInChapter(3, 76), is(true));
-    assertThat(book.validateVerseInChapter(3, 77), is(false));
-    assertThat(book.validateVerseInChapter(3, 1), is(true));
-    assertThat(book.validateVerseInChapter(3, 0), is(false));
-}
+        assertThat(book.numChapters(), is(equalTo(5)));
+        assertThat(book.numVersesInChapter(3), is(equalTo(76)));
+        assertThat(book.numVersesInChapter(0), is(equalTo(-1)));
+        assertThat(book.numVersesInChapter(6), is(equalTo(-1)));
+        assertThat(book.validateChapter(5), is(true));
+        assertThat(book.validateChapter(6), is(false));
+        assertThat(book.validateVerseInChapter(3, 76), is(true));
+        assertThat(book.validateVerseInChapter(3, 77), is(false));
+        assertThat(book.validateVerseInChapter(3, 1), is(true));
+        assertThat(book.validateVerseInChapter(3, 0), is(false));
+    }
 
     @Test
-    public void testBookComparison() throws Throwable {
+    public void testBookComparison() {
         Book book1 = new DummyBook(1, "Book 1", 45, 22, 76, 12, 5);
         Book book2 = new DummyBook(1, "Book 2", 45, 22, 76, 12, 5);
         Book book3 = new DummyBook(2, "Book 3", 44, 21, 75, 11, 4);
@@ -58,7 +58,7 @@ public void testBookVerseValidations() throws Throwable {
     }
 
     @Test
-    public void testBookGettersAndSetters() throws Throwable {
+    public void testBookGettersAndSetters() {
         Book book = new DummyBook(1, "Dummy Book", 45, 22, 76, 12, 5);
 
         book.setId("id-1");
@@ -89,7 +89,7 @@ public void testBookVerseValidations() throws Throwable {
 // Test Bible class functionality
 //----------------------------------------------------------------------------------------------------------------------
     @Test
-    public void testBibleGettersAndSetters() throws Throwable {
+    public void testBibleGettersAndSetters() {
         DummyBible bible = new DummyBible();
 
         bible.setId("id-1");
@@ -117,7 +117,7 @@ public void testBookVerseValidations() throws Throwable {
     }
 
     @Test
-    public void testParseBook() throws Throwable {
+    public void testParseBook() {
         DummyBible bible = new DummyBible();
 
         List<DummyBook> books = new ArrayList<>();
@@ -174,7 +174,7 @@ public void testBookVerseValidations() throws Throwable {
 //----------------------------------------------------------------------------------------------------------------------
 
     @Test
-    public void testBibleListGettersAndSetters() throws Throwable {
+    public void testBibleListGettersAndSetters() {
         DummyBibleList bibleList = new DummyBibleList();
 
         bibleList.setBibles(null);

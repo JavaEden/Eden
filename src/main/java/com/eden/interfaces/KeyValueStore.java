@@ -1,6 +1,8 @@
 package com.eden.interfaces;
 
 public interface KeyValueStore {
+    boolean containsKey(String key);
+
     void put(String key, Object value);
     Object get(String key);
 

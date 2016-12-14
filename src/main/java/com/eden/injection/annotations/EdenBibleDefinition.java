@@ -2,7 +2,7 @@ package com.eden.injection.annotations;
 
 import com.caseyjbrooks.clog.Clog;
 import com.eden.Eden;
-import com.eden.EdenRepository;
+import com.eden.repositories.EdenRepository;
 import com.eden.bible.Bible;
 import com.eden.injection.EdenInjector;
 import com.eden.utils.TextUtils;
@@ -19,7 +19,7 @@ public class EdenBibleDefinition extends EdenInjector.AnnotationDefinition {
 
                 Bible bible;
                 if(TextUtils.isEmpty(edenBible.id())) {
-                    bible = repository.getSelectedBible();
+                    bible = repository.getBible();
                 }
                 else {
                     bible = repository.getBible(edenBible.id());

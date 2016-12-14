@@ -2,7 +2,7 @@ package com.eden.injection.annotations;
 
 import com.caseyjbrooks.clog.Clog;
 import com.eden.Eden;
-import com.eden.EdenRepository;
+import com.eden.repositories.EdenRepository;
 import com.eden.bible.BibleList;
 import com.eden.injection.EdenInjector;
 

@@ -20,8 +20,7 @@ import java.util.ArrayList;
  * verseSequence ::= verse punctuation verse
  * verseList ::= { [verse | verseSequence] punctuation }
  */
-
-//TODO: Replace all hard references to punctuation or word-punctuation with special enums in Token
+// TODO: Add support for parsing a Bible out of the reference, e.g. John 3:16 (ESV)
 public class ReferenceParser {
     private Reference.Builder builder;
 

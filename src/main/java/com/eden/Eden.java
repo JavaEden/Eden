@@ -6,10 +6,13 @@ import com.eden.injection.EdenInjector;
 import com.eden.injection.annotations.EdenBibleDefinition;
 import com.eden.injection.annotations.EdenBibleListDefinition;
 import com.eden.interfaces.KeyValueStore;
+import com.eden.repositories.EdenRepository;
 import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Eden is a singleton representing the global state of an entire application and all registered sources of Bible verse
@@ -51,6 +54,8 @@ public final class Eden {
     private Map<String, EdenRepository> repositories;
     private final EdenInjector edenInjector;
 
+    ExecutorService executorService;
+
     public static Eden getInstance() {
         if(instance == null) {
             instance = new Eden();
@@ -77,6 +82,8 @@ public final class Eden {
         edenInjector = new EdenInjector();
         edenInjector.addAnnotation(new EdenBibleDefinition());
         edenInjector.addAnnotation(new EdenBibleListDefinition());
+
+        executorService = Executors.newFixedThreadPool(4);
     }
 
     public KeyValueStore config() {
@@ -101,6 +108,14 @@ public final class Eden {
 
     public void setDeserializer(GsonBuilder deserializer) {
         this.deserializer = deserializer;
+    }
+
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 
     /**
