@@ -18,13 +18,13 @@ import java.util.function.Function;
  * API, or anything else. It is designed to be the single point of entry for accessing Verse data, acting as a simple
  * dependency injector, finding or creating Objects of the types given by the Bible, BibleList, and Passage classes
  * provided.
- *
+ * <p>
  * All methods are expected to be long-running tasks which can be executed synchronously or asynchronously. All
  * asynchronous functions are just the synchronous functions wrapped in a CompletableFuture which is executed on the
  * Executor defined in the main Eden instance. Async functions are defined to either return the CompletableFuture
  * directly, or instead can simply return the result in a callback if all you need is the result, but run on a background
  * thread (such as when used on the Android platform).
- *
+ * <p>
  * In most cases, any EdenRepository implementation should only need to define the appropriate classes, and the base
  * EdenRepository class will be able to do everything else.
  */
@@ -39,6 +39,7 @@ public abstract class EdenRepository {
     /**
      * Returns an ID for a Bible that has been set in the main Eden KeyValueStore at the key of the form
      * "{{fully-qualified Repository class name}}_selectedBibleId"
+     *
      * @return
      */
     public String getDefaultBibleId() {
@@ -51,6 +52,7 @@ public abstract class EdenRepository {
     /**
      * Stores the ID for a Bible in the main Eden KeyValueStore at the key of the form
      * "{{fully-qualified Repository class name}}_selectedBibleId"
+     *
      * @return
      */
     public void setDefaultBibleId(String id) {
@@ -66,7 +68,7 @@ public abstract class EdenRepository {
      */
     public void setSelectedBible(Bible selectedBible) {
         this.selectedBible = selectedBible;
-        if(this.selectedBible != null) {
+        if (this.selectedBible != null) {
             setDefaultBibleId(this.selectedBible.getId());
         }
     }
@@ -86,18 +88,18 @@ public abstract class EdenRepository {
      * Synchronously gets the Bible at a given ID. If a Bible has not yet been selected, it will attempt to create
      * a Bible according to the following rules:
      * <ol>
-     *     <li>It will always attempt to look up a Bible by a given ID. If an ID is passed to this method it will use
-     *     that, otherwise it will look for a Bible with an ID given by EdenRepository#getDefaultBibleId().</li>
-     *     <li>Once we have determined the Bible ID, it will first look in the Repository's BibleList for a Bible at
-     *     the given ID. If no such Bible exists, it will use reflection to create a new Bible of the class given by
-     *     EdenRepository#getBibleClass().</li>
+     * <li>It will always attempt to look up a Bible by a given ID. If an ID is passed to this method it will use
+     * that, otherwise it will look for a Bible with an ID given by EdenRepository#getDefaultBibleId().</li>
+     * <li>Once we have determined the Bible ID, it will first look in the Repository's BibleList for a Bible at
+     * the given ID. If no such Bible exists, it will use reflection to create a new Bible of the class given by
+     * EdenRepository#getBibleClass().</li>
      * </ol>
      *
      * @return
      */
     public Bible getBible(String id) {
         boolean getAsSelected = false;
-        if(TextUtils.isEmpty(id)) {
+        if (TextUtils.isEmpty(id)) {
             getAsSelected = true;
             id = getDefaultBibleId();
         }
@@ -106,7 +108,7 @@ public abstract class EdenRepository {
                 ? selectedBible
                 : null;
 
-        if(bible == null) {
+        if (bible == null) {
             if (bibleList != null && bibleList.hasBible(id)) {
                 bible = bibleList.getBible(id);
             }
@@ -156,8 +158,8 @@ public abstract class EdenRepository {
     /**
      * Gets the default Bible asynchronously, calling back to the client when the Future has completed
      *
-     * @param success  the callback when the Bible is eventually found
-     * @param error  the callback when there is an error finding the Bible
+     * @param success the callback when the Bible is eventually found
+     * @param error   the callback when there is an error finding the Bible
      */
     public void getBibleAsync(Consumer<? super Bible> success, Function<Throwable, ? extends Bible> error) {
         getBibleAsync(null, success, error);
@@ -166,8 +168,8 @@ public abstract class EdenRepository {
     /**
      * Gets the Bible at the given ID asynchronously, calling back to the client when the Future has completed
      *
-     * @param success  the callback when the Bible is eventually found
-     * @param error  the callback when there is an error finding the Bible
+     * @param success the callback when the Bible is eventually found
+     * @param error   the callback when there is an error finding the Bible
      */
     public void getBibleAsync(String id, Consumer<? super Bible> success, Function<Throwable, ? extends Bible> error) {
         getBibleAsync(id)
@@ -182,12 +184,12 @@ public abstract class EdenRepository {
      * @return BibleList  the setBibleList
      */
     public BibleList getBibleList() {
-        if(bibleList == null) {
+        if (bibleList == null) {
             try {
                 bibleList = getBibleListClass().getConstructor().newInstance();
                 bibleList.get();
             }
-            catch(NoSuchMethodException
+            catch (NoSuchMethodException
                     | InvocationTargetException
                     | InstantiationException
                     | IllegalAccessException e) {
@@ -210,8 +212,8 @@ public abstract class EdenRepository {
     /**
      * Gets the BibleList asynchronously, calling back to the client when the Future has completed
      *
-     * @param success  the callback when the BibleList is eventually found
-     * @param error  the callback when there is an error finding the BibleList
+     * @param success the callback when the BibleList is eventually found
+     * @param error   the callback when there is an error finding the BibleList
      */
     public void getBibleListAsync(Consumer<? super BibleList> success, Function<Throwable, ? extends BibleList> error) {
         getBibleListAsync()
@@ -255,7 +257,7 @@ public abstract class EdenRepository {
             passage = getPassageClass().getConstructor(Reference.class).newInstance(ref);
             passage.get();
         }
-        catch(Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
             passage = null;
         }

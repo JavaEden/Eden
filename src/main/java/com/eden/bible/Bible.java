@@ -9,6 +9,7 @@ import java.util.List;
 // TODO: decide whether I really want to keep language and languageEnglish
 // TODO: decide whether a Bible should have a Metadata object for itself to hold other information
 // TODO: give it a getter for the Book type, so that other classes, like Reference.Builder can dynamically create the appropriate Books for this Bible
+
 /**
  * A base class to give a verse the Bible translation or version that it is. A bible Bible should
  * have a full name, an abbreviation (which can be derived from the full name), and a list of Books
@@ -40,7 +41,7 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
      * its text from a webservice, or its primary key to look it up in a local databaseRegardless of
      * how it is used, it is simpler to keep this in the base class since it is such a common use case.
      *
-     * @param id  the id to set
+     * @param id the id to set
      */
     public void setId(String id) {
         this.id = id;
@@ -58,14 +59,14 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
     /**
      * Set the name of this Bible.
      *
-     * @param name  the name to set
+     * @param name the name to set
      */
     public void setName(String name) {
         this.name = name;
 
-        if(TextUtils.isEmpty(this.abbreviation)) {
+        if (TextUtils.isEmpty(this.abbreviation)) {
             this.abbreviation = "";
-            for(String word : name.split("\\s")) {
+            for (String word : name.split("\\s")) {
                 this.abbreviation += word.charAt(0);
             }
         }
@@ -83,7 +84,7 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
     /**
      * Set the abbreviation of the name of this Bible.
      *
-     * @param abbreviation  the abbreviation to set
+     * @param abbreviation the abbreviation to set
      */
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
@@ -129,7 +130,6 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
      * Get this Bibles's listing of books.
      *
      * @return this Bibles's books
-     *
      * @see Book
      */
     public List<T> getBooks() {
@@ -139,7 +139,7 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
     /**
      * Set the list of Books in this Bible.
      *
-     * @param books  the books to set
+     * @param books the books to set
      * @see Book
      */
     public void setBooks(Collection<T> books) {
@@ -153,17 +153,16 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
      * instead, throw an exception, or anything else.
      *
      * @param bookName the text of the book to attempt to parse
-     *
      * @return a Book if the name matches one of the Books in this Bible, null otherwise
      */
     public T parseBook(String bookName) {
-        for(T book : books) {
+        for (T book : books) {
             //check equality of the full book name
-            if(bookName.equalsIgnoreCase(book.getName())) {
+            if (bookName.equalsIgnoreCase(book.getName())) {
                 return book;
             }
             //check equality of the abbreviation
-            else if(bookName.equalsIgnoreCase(book.getAbbreviation())) {
+            else if (bookName.equalsIgnoreCase(book.getAbbreviation())) {
                 return book;
             }
 
@@ -172,11 +171,11 @@ public abstract class Bible<T extends Book> implements Comparable<Bible> {
                 int nameSize = Math.min(bookName.length(), book.getName().length());
                 int abbrSize = Math.min(bookName.length(), book.getAbbreviation().length());
 
-                if(bookName.substring(0, nameSize).equalsIgnoreCase(book.getName().substring(0, nameSize))) {
+                if (bookName.substring(0, nameSize).equalsIgnoreCase(book.getName().substring(0, nameSize))) {
                     return book;
                 }
                 //check equality of the abbreviation
-                else if(bookName.substring(0, abbrSize).equalsIgnoreCase(book.getAbbreviation().substring(0, abbrSize))) {
+                else if (bookName.substring(0, abbrSize).equalsIgnoreCase(book.getAbbreviation().substring(0, abbrSize))) {
                     return book;
                 }
             }

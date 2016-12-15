@@ -22,17 +22,17 @@ public class EdenInjector {
     public void processAnnotations(Object object) {
         Field[] fields = object.getClass().getDeclaredFields();
         for (Field field : fields) {
-            for(AnnotationDefinition definition : annotationDefinitionList) {
+            for (AnnotationDefinition definition : annotationDefinitionList) {
                 if (field.isAnnotationPresent(definition.annotationClass)) {
                     if (definition.fieldTypeClass.isAssignableFrom(field.getType())) {
                         definition.annotationHandler.handle(field.getAnnotation(definition.annotationClass), object, field);
                     }
                     else {
                         Clog.e("@#{$1} annotation must be used on a field of type #{$2} or one of its subclasses.",
-                            new Object[] {
-                                definition.annotationClass.getSimpleName(),
-                                definition.fieldTypeClass.getSimpleName()
-                            }
+                                new Object[]{
+                                        definition.annotationClass.getSimpleName(),
+                                        definition.fieldTypeClass.getSimpleName()
+                                }
                         );
                     }
                 }

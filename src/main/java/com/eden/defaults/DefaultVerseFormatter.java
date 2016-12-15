@@ -28,7 +28,7 @@ public class DefaultVerseFormatter implements VerseFormatter {
         this.seedOffset = 0;
     }
 
-//Set up default interface values
+    //Set up default interface values
 //--------------------------------------------------------------------------------------------------
     @Override
     public String onPreFormat(AbstractVerse verse) {
@@ -52,7 +52,8 @@ public class DefaultVerseFormatter implements VerseFormatter {
             float randomValue = randomizer.nextFloat();
             if (randomValue > level) {
                 text += transformWord(word) + " ";
-            } else {
+            }
+            else {
                 text += word + " ";
             }
         }

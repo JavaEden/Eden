@@ -23,13 +23,13 @@ public class EdenBibleListDefinition extends EdenInjector.AnnotationDefinition {
                 try {
                     annotatedField.set(targetObject, bibleList);
                 }
-                catch(Exception e) {
+                catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             else {
                 Clog.e("@#{$1} Error: Annotated field was of type #{$2} but #{$3} only produces BibleList instances of type #{$4}",
-                        new Object[] {
+                        new Object[]{
                                 edenBibleList.getClass().getSimpleName(),
                                 annotatedField.getType().getSimpleName(),
                                 repository.getClass().getSimpleName(),

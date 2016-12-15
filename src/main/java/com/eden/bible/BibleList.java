@@ -47,7 +47,7 @@ public abstract class BibleList<T extends Bible> {
     }
 
     public Bible getBible(String id) {
-        if(hasBible(id)) {
+        if (hasBible(id)) {
             return bibles.get(id);
         }
 

@@ -52,7 +52,7 @@ public class ReferenceParser {
         Token a = ts.get();
 
         //if token is punctuation, either character or word
-        if(a != null && a.isPunctuation()) {
+        if (a != null && a.isPunctuation()) {
             return true;
         }
         else {
@@ -67,7 +67,7 @@ public class ReferenceParser {
         boolean includesNumber;
 
         //optional number between 1 and 3
-        if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() <= 3 && a.getIntValue() > 0) {
+        if (a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() <= 3 && a.getIntValue() > 0) {
             //token was valid number, leave it out and continue parsing book
             includesNumber = true;
         }
@@ -80,9 +80,9 @@ public class ReferenceParser {
         //mandatory set of words before a number
         ArrayList<Token> tokens = new ArrayList<>();
 
-        while(true) {
+        while (true) {
             Token t = ts.get();
-            if(t != null && t.equals(Token.Type.WORD)) {
+            if (t != null && t.equals(Token.Type.WORD)) {
                 tokens.add(t);
                 continue;
             }
@@ -94,7 +94,7 @@ public class ReferenceParser {
 
         String bookName = (includesNumber) ? a.getIntValue() + " " : "";
 
-        for(Token t : tokens) {
+        for (Token t : tokens) {
             bookName += t.getStringValue() + " ";
         }
 
@@ -106,7 +106,7 @@ public class ReferenceParser {
     //chapter ::= number
     private boolean chapter() {
         Token a = ts.get();
-        if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
+        if (a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
             builder.setChapter(a.getIntValue());
             return true;
         }
@@ -119,7 +119,7 @@ public class ReferenceParser {
     //verse ::= number
     private boolean verse() {
         Token a = ts.get();
-        if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
+        if (a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
             builder.addVerse(a.getIntValue());
             return true;
         }
@@ -132,18 +132,18 @@ public class ReferenceParser {
     //verseSequence ::= number dash number
     private boolean verseSequence() {
         Token a = ts.get();
-        if(a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
+        if (a != null && a.equals(Token.Type.NUMBER) && a.getIntValue() > 0) {
             int numA = a.getIntValue();
 
             Token dash = ts.get();
-            if(dash != null &&
+            if (dash != null &&
                     (dash.equals(Token.Type.DASH) || Token.getTokenFromWord(dash.getStringValue()).equals(Token.Type.DASH))) {
 
                 Token b = ts.get();
-                if(b != null && b.equals(Token.Type.NUMBER) && b.getIntValue() > 0) {
+                if (b != null && b.equals(Token.Type.NUMBER) && b.getIntValue() > 0) {
                     int numB = b.getIntValue();
 
-                    for(int i = numA; i <= numB; i++) {
+                    for (int i = numA; i <= numB; i++) {
                         builder.addVerse(i);
                     }
                     return true;
@@ -169,14 +169,14 @@ public class ReferenceParser {
 
     //verseList ::= { [verse | verseSequence] comma }
     private void verseList() {
-        while(true) {
-            if(!verseSequence()) {
-                if(!verse()) {
+        while (true) {
+            if (!verseSequence()) {
+                if (!verse()) {
                     return;
                 }
             }
 
-            if(!punctuation()) {
+            if (!punctuation()) {
                 return;
             }
         }

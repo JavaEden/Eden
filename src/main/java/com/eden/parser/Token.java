@@ -44,12 +44,12 @@ public class Token {
 
     boolean isPunctuationCharacter() {
         return this.equals(Token.Type.COLON) ||
-            this.equals(Token.Type.SEMICOLON) ||
-            this.equals(Token.Type.COMMA) ||
-            this.equals(Token.Type.DOT) ||
-            this.equals(Token.Type.DASH) ||
-            this.equals(Token.Type.SLASH) ||
-            this.equals(Token.Type.BACKSLASH);
+                this.equals(Token.Type.SEMICOLON) ||
+                this.equals(Token.Type.COMMA) ||
+                this.equals(Token.Type.DOT) ||
+                this.equals(Token.Type.DASH) ||
+                this.equals(Token.Type.SLASH) ||
+                this.equals(Token.Type.BACKSLASH);
     }
 
     boolean isPunctuationWord() {
@@ -58,11 +58,14 @@ public class Token {
 
     static Token getTokenFromWord(String word) {
 
-        if(word != null) {
-            switch(word.toLowerCase()) {
-                case "and": return new Token(Type.COMMA);
-                case "through": return new Token(Type.DASH);
-                case "to": return new Token(Type.DASH);
+        if (word != null) {
+            switch (word.toLowerCase()) {
+                case "and":
+                    return new Token(Type.COMMA);
+                case "through":
+                    return new Token(Type.DASH);
+                case "to":
+                    return new Token(Type.DASH);
             }
         }
 

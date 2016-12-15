@@ -39,7 +39,8 @@ public class Passage extends AbstractVerse {
                 Verse verse = verseClass.getConstructor(Reference.class).newInstance(ref);
 
                 this.verses.add(verse);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -79,7 +80,8 @@ public class Passage extends AbstractVerse {
             text += verseFormatter.onPostFormat();
 
             return text.trim();
-        } else {
+        }
+        else {
             return "";
         }
     }
@@ -90,12 +92,12 @@ public class Passage extends AbstractVerse {
             String text = "";
 
             for (int i = 0; i < verses.size(); i++) {
-                if (verses.get(i) != null)
-                    text += verses.get(i).getRawText() + " ";
+                if (verses.get(i) != null) { text += verses.get(i).getRawText() + " "; }
             }
 
             return text.trim();
-        } else {
+        }
+        else {
             return "";
         }
     }

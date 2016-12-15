@@ -8,10 +8,10 @@ public class SimpleBible extends Bible<SimpleBook> {
         this.books.add(new SimpleBook());
     }
 
-	@Override
-	public SimpleBook parseBook(String bookName) {
-		SimpleBook book = new SimpleBook();
-		book.setName(bookName);
-		return book;
-	}
+    @Override
+    public SimpleBook parseBook(String bookName) {
+        SimpleBook book = new SimpleBook();
+        book.setName(bookName);
+        return book;
+    }
 }

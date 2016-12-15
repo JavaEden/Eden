@@ -9,7 +9,7 @@ import com.eden.interfaces.VerseFormatter;
  * and is considered immutable in that the location the verse points to is fixed. A verse contains
  * several peripheral classes to give a verse metadata, provide intelligent sorting, and create a
  * consistent IO pattern that enables use with the various UI widgets contained in this library.
- *
+ * <p>
  * Each verse must be initialized with the Reference that refers to its location in the Bible.
  * References are immutable, and so this verse will always describe the same verse in the same Bible.
  * The actual text and other metadata associated with the verse may change, so that the same verse
@@ -27,8 +27,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
      * Required constructor for this verse. Accepts just the Reference, and all other values are set
      * to their default empty states.
      *
-     * @param reference  the Reference that this verse points to in the Bible
-     *
+     * @param reference the Reference that this verse points to in the Bible
      * @see Reference
      */
     public AbstractVerse(Reference reference) {
@@ -58,8 +57,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
     /**
      * Set the VerseFormatter to be used when printing this verse with {@link AbstractVerse#getText()}
      *
-     * @param verseFormatter  the VerseFormatter to be used
-     *
+     * @param verseFormatter the VerseFormatter to be used
      * @see DefaultVerseFormatter
      */
     public void setVerseFormatter(VerseFormatter verseFormatter) {
@@ -78,8 +76,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
     /**
      * Set the metadata for this verse. Can be useful when trying to sync the state of multiple verses.
      *
-     * @param metadata  the MetaData to set
-     *
+     * @param metadata the MetaData to set
      * @see Metadata
      */
     public void setMetadata(Metadata metadata) {
@@ -101,7 +98,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
      * text of its Reference. Regardless of how it is used, it is simpler to keep this in the base class
      * since it is such a common use case.
      *
-     * @param id  the id to set
+     * @param id the id to set
      */
     public void setId(String id) {
         this.id = id;
@@ -120,7 +117,6 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
      * Get the formatted text of this verse, using the set Formatter.
      *
      * @return the formatted text of the verse
-     *
      * @see #setVerseFormatter(VerseFormatter)
      */
     public abstract String getText();
@@ -152,7 +148,7 @@ public abstract class AbstractVerse implements Comparable<AbstractVerse> {
      * comparison should work. Refer to the documentation of any implementing classes to see how it
      * is handled.
      *
-     * @param verse  the verse to compare with
+     * @param verse the verse to compare with
      * @return the result of comparison
      */
     public abstract int compareTo(AbstractVerse verse);

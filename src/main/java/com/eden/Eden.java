@@ -20,14 +20,14 @@ import java.util.concurrent.Executors;
  * verses and/or Bible metadata. It is expected that a common Eden app would need to get data from multiple sources,
  * such as looking up Verses from one or more remote APIs, but also letting users store individual verse lists in a
  * database.
- *
+ * <p>
  * The Eden instance represents an injection container for all global app data to be shared, and also for registering
  * all the available EdenRepository instances to be used within an app. New functionality can be added to an Eden app
  * by extending the EdenRepository class and adding it to the Eden instance with .registerRepository(). The purpose of
  * keeping all Repositories in one Eden instance is so that any client that need to request data from a Bible source has
  * access to all the data needed to retrieve that data in one location. All API keys, preferences for Bible versions,
  * etc. are all stored within this one location and then either requested or injected wherever needed.
- *
+ * <p>
  * Eden supports dependency injection (DI) with the use of the @EdenBibleList, @EdenBible, and @EdenPassage annotations.
  * To inject Eden properties into an object, annotate the injectable fields with the above annotation and call
  * Eden.inject(object); in your initialization code, where 'object' is the Object that your Eden properties should be
@@ -57,7 +57,7 @@ public final class Eden {
     ExecutorService executorService;
 
     public static Eden getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new Eden();
         }
 
@@ -69,15 +69,15 @@ public final class Eden {
         this.repositories = new HashMap<>();
 
         this.serializer = new GsonBuilder()
-            .disableHtmlEscaping()
-            .setPrettyPrinting()
-            .serializeNulls()
-            .registerTypeAdapter(Reference.class, new Reference.ReferenceJsonizer());
+                .disableHtmlEscaping()
+                .setPrettyPrinting()
+                .serializeNulls()
+                .registerTypeAdapter(Reference.class, new Reference.ReferenceJsonizer());
 
         this.deserializer = new GsonBuilder()
-            .disableHtmlEscaping()
-            .setPrettyPrinting()
-            .serializeNulls();
+                .disableHtmlEscaping()
+                .setPrettyPrinting()
+                .serializeNulls();
 
         edenInjector = new EdenInjector();
         edenInjector.addAnnotation(new EdenBibleDefinition());
@@ -121,7 +121,7 @@ public final class Eden {
     /**
      * Register a new EdenRepository
      *
-     * @param repository  the repository instance
+     * @param repository the repository instance
      */
     public void registerRepository(EdenRepository repository) {
         this.repositories.put(repository.getClass().getName(), repository);
@@ -131,8 +131,8 @@ public final class Eden {
      * Register a new EdenRepository and give it an alias. It can then be recalled by either by alias or the
      * fully-qualified class name.
      *
-     * @param repository  the repository instance to register
-     * @param alias  the alias
+     * @param repository the repository instance to register
+     * @param alias      the alias
      */
     public void registerRepository(EdenRepository repository, String alias) {
         this.repositories.put(repository.getClass().getName(), repository);
@@ -142,8 +142,8 @@ public final class Eden {
     /**
      * Get a repository by its Class
      *
-     * @param repositoryClass  the class of the repository to find
-     * @return  the repository if it exists, null otherwise
+     * @param repositoryClass the class of the repository to find
+     * @return the repository if it exists, null otherwise
      */
     public EdenRepository getRepository(Class<? extends EdenRepository> repositoryClass) {
         return this.repositories.getOrDefault(repositoryClass.getName(), null);
@@ -153,8 +153,8 @@ public final class Eden {
      * Get a repository by its String alias. Alternatively, since all Repository keys are strings, the 'alias' could
      * be the fully-qualified class name of the desired EdenRepository instance.
      *
-     * @param repositoryAlias  the alias or fully-qualified class name of the repository to find
-     * @return  the repository if it exists, null otherwise
+     * @param repositoryAlias the alias or fully-qualified class name of the repository to find
+     * @return the repository if it exists, null otherwise
      */
     public EdenRepository getRepository(String repositoryAlias) {
         return this.repositories.getOrDefault(repositoryAlias, null);
@@ -164,7 +164,7 @@ public final class Eden {
      * Bootstrap the Eden dependency injection for a given object. Eden will search the object for all registered
      * annotations and attempt to inject objects into each annotated field.
      *
-     * @param object  the annotated object to inject dependencies into
+     * @param object the annotated object to inject dependencies into
      */
     public void inject(Object object) {
         edenInjector.processAnnotations(object);

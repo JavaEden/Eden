@@ -11,6 +11,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EdenBible {
     Class<? extends EdenRepository> repository();
+
     String id() default "";
+
     boolean singleton() default true;
 }
