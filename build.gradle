@@ -7,7 +7,11 @@ apply plugin: 'jacoco'
 sourceCompatibility = 1.8
 
 configurations {
-    doclava
+    orchidDocs
+}
+
+sourceSets {
+    orchidDocs
 }
 
 repositories {
@@ -16,7 +20,9 @@ repositories {
 }
 
 dependencies {
-    doclava 'com.github.JavaEden:doclava:v0.1.1'
+    orchidDocs('com.github.JavaEden:Orchid:ffda31f7d8') {
+        transitive = true
+    }
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-library:1.3'
@@ -35,14 +41,17 @@ jacocoTestReport {
 }
 check.dependsOn jacocoTestReport
 
-// Documentation generation tasks using custom-styled Doclava doclet
+// Documentation generation tasks using custom-styled Orchid doclet
 //------------------------------------------------------------------------------
 javadoc {
     title = ""
     source = sourceSets.main.allJava
 
-    options.docletpath.addAll(configurations.doclava)
-    options.doclet = 'com.google.doclava.Doclava'
+    options.docletpath.addAll(configurations.orchidDocs)
+    options.doclet = 'com.eden.orchid.Orchid'
+
+    options.addStringOption("colors", "#c00 #000000")
+    options.addStringOption("resourcesDir", sourceSets.orchidDocs.resources.srcDirs[0].toString())
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
