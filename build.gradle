@@ -7,7 +7,8 @@ apply plugin: 'jacoco'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    jcenter()
+    maven { url 'https://dl.bintray.com/javaeden/Eden/' }
     maven { url 'https://jitpack.io' }
 }
 
@@ -16,7 +17,7 @@ dependencies {
     testCompile 'org.hamcrest:hamcrest-library:1.3'
 
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.github.JavaEden:Clog4j:v1.5.0'
+    compile 'com.eden:Clog:2.0.0'
 }
 
 // Jacoco Code Coverage tasks
