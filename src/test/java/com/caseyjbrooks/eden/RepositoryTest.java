@@ -99,7 +99,7 @@ public class RepositoryTest {
         })
         ;
 
-        lock.await(5000, TimeUnit.MILLISECONDS);
+        lock.await(60000, TimeUnit.MILLISECONDS);
     }
 
     @Test
@@ -144,9 +144,9 @@ public class RepositoryTest {
             return null;
         });
 
-        lock1.await(5000, TimeUnit.MILLISECONDS);
-        lock2.await(5000, TimeUnit.MILLISECONDS);
-        lock3.await(5000, TimeUnit.MILLISECONDS);
+        lock1.await(60000, TimeUnit.MILLISECONDS);
+        lock2.await(60000, TimeUnit.MILLISECONDS);
+        lock3.await(60000, TimeUnit.MILLISECONDS);
 
         if(!hitLock1.flag || !hitLock2.flag || !hitLock3.flag) {
             Assert.fail();
