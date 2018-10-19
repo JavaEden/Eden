@@ -17,7 +17,7 @@ dependencies {
     testCompile 'org.hamcrest:hamcrest-library:1.3'
 
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.eden:Clog:2.0.0'
+    compile 'com.eden:Clog:2.0.4'
 }
 
 // Jacoco Code Coverage tasks
